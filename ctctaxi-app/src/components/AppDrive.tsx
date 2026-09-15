@@ -3,7 +3,14 @@ import { useState, type FormEvent } from 'react';
 import { Icon, PlayGlyph, Reveal, SectionHead } from './primitives';
 import { IMG, srcset } from '../assets/images';
 import { AREAS, DRIVER_BENEFITS } from '../lib/data';
-import { CAPTURE, isPhone, validateDriver, type DriverValues, type Errors } from '../lib/forms';
+import {
+  API_BASE_URL,
+  CAPTURE,
+  isPhone,
+  validateDriver,
+  type DriverValues,
+  type Errors,
+} from '../lib/forms';
 import { APPS, CONTACT, track } from '../lib/analytics';
 
 /* ==========================================================================
@@ -247,7 +254,7 @@ export function DriveWithCTC() {
     setStatus('submitting');
 
     try {
-      const res = await fetch('http://localhost:5050/api/driver-applications', {
+      const res = await fetch(`${API_BASE_URL}/api/driver-applications`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({

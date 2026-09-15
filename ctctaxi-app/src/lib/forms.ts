@@ -9,6 +9,13 @@ export const CAPTURE = {
   spellCheck: false,
 };
 
+const configuredApiUrl = (import.meta.env.VITE_API_URL as string | undefined)?.trim();
+
+export const API_BASE_URL = (
+  configuredApiUrl ||
+  (import.meta.env.DEV ? 'http://localhost:5050' : 'https://ctctaxi-backend.onrender.com')
+).replace(/\/+$/, '');
+
 /* ------------------------------------------------------------- validators */
 
 /**

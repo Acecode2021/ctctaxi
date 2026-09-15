@@ -1,8 +1,9 @@
 import { AnimatePresence, motion, useReducedMotion } from 'framer-motion';
 import { useMemo, useState, type FormEvent } from 'react';
 import { Icon } from './primitives';
-import { CAPTURE, validate, type Errors } from '../lib/forms';
+import { API_BASE_URL, CAPTURE, validate, type Errors } from '../lib/forms';
 import { CONTACT, SERVICE_TYPES_LABELS, track } from '../lib/submit';
+
 
 type Values = {
   pickup: string;
@@ -52,9 +53,8 @@ export function QuickBook() {
 
     setStatus('submitting');
     track('booking_submitted', { service: v.service });
-
     try {
-      const res = await fetch('http://localhost:5050/api/bookings', {
+      const res = await fetch(`${API_BASE_URL}/api/bookings`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
