@@ -10,10 +10,10 @@ import { track } from '../lib/analytics';
    ========================================================================== */
 
 const AIRPORT_FARES = [
-  { route: 'MMIA — International', detail: 'Ikeja, Lagos', fare: 'N/A' },
-  { route: 'MMIA — Domestic', detail: 'Ikeja, Lagos', fare: 'N/A' },
-  { route: 'Lekki / Ajah ↔ MMIA', detail: 'Via Lekki–Ikoyi Link Bridge', fare: 'N/A' },
-  { route: 'Ikeja ↔ Victoria Island', detail: 'Executive saloon', fare: 'N/A' },
+  { route: 'MMIA — International', detail: 'Ikeja, Lagos', fare: '' },
+  { route: 'MMIA — Domestic', detail: 'Ikeja, Lagos', fare: '' },
+  { route: 'Lekki / Ajah ↔ MMIA', detail: 'Via Lekki–Ikoyi Link Bridge', fare: '' },
+  { route: 'Ikeja ↔ Victoria Island', detail: 'Executive saloon', fare: '' },
 ];
 
 export function Airport() {
@@ -96,7 +96,7 @@ export function Airport() {
                   className="btn btn--brand"
                   onClick={() => track('cta_click', { cta: 'airport_book' })}
                 >
-                  Book an Airport Transfer
+                  Book an Airport Routes
                   <Icon name="arrow-right" size={17} />
                 </a>
               </div>
@@ -113,8 +113,8 @@ export function Airport() {
                 <span className="text-white font-semibold text-[0.95rem]">
                   Indicative airport fares
                 </span>
-                <span className="tag" style={{ background: 'rgba(219,20,123,.2)', color: '#F7A9D0' }}>
-                  Fixed
+                <span className="tag" style={{ background: 'rgba(90, 90, 90, 0.2)', color: '#F7A9D0' }}>
+                
                 </span>
               </div>
               <ul>

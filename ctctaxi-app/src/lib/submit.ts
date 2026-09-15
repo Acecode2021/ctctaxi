@@ -6,7 +6,7 @@ export type { Errors, BookingValues, DriverValues, SubmitResult } from './forms'
 /** Booking form service labels — must mirror SERVICE_TYPES in data.ts. */
 export const SERVICE_TYPES_LABELS = [
   { value: 'ride', label: 'Ride' },
-  { value: 'airport', label: 'Airport Transfer' },
+  { value: 'airport', label: 'Airport Routes' },
   { value: 'corporate', label: 'Corporate' },
   { value: 'delivery', label: 'Delivery' },
 ] as const;

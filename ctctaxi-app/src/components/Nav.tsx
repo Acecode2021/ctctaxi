@@ -8,7 +8,7 @@ const LINKS = [
   { label: 'Home', href: '#top' },
   { label: 'Services', href: '#services' },
   { label: 'Download App', href: '#apps' },
-  { label: 'Airport Transfer', href: '#airport' },
+  { label: 'Airport Routes', href: '#airport' },
   { label: 'Corporate', href: '#corporate' },
   { label: 'Safety', href: '#safety' },
   { label: 'Drive With CTC', href: '#drive' },

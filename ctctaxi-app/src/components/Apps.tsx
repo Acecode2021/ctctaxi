@@ -184,11 +184,10 @@ const APPS_DETAIL: AppDef[] = [
         title: 'Turn-by-turn navigation',
         body: 'Guidance to the pickup point and on to the drop-off, so you are never hunting for an address.',
       },
-      {
-        icon: 'rupee',
-        title: 'Lower commission than the big apps',
-        body: 'The major platforms keep 15–20% of every fare. We keep less, so more of each trip stays with you.',
-      },
+      
+       
+        
+      
       {
         icon: 'calendar',
         title: 'Airport and corporate jobs',

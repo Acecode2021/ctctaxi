@@ -101,7 +101,7 @@ export function validateDriver(v: DriverValues): Errors<DriverValues> {
 
 export type SubmitResult = { ok: boolean; error?: string };
 
-const ENDPOINT = import.meta.env.VITE_FORM_ENDPOINT as string | undefined;
+const ENDPOINT = import.meta.env.VITE_API_URL as string | undefined;
 
 /**
  * Posts a submission to the configured endpoint.

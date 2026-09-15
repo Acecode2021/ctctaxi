@@ -36,7 +36,7 @@ export const SERVICES: Service[] = [
   },
   {
     id: 'airport',
-    title: 'Airport Transfers',
+    title: 'Airport Routes',
     short: 'Stress-free airport transportation with professional drivers and scheduled pickups.',
     detail:
       'Give us your flight number and we set the pickup to your real landing time. Waiting after you land is free for the first hour.',
