@@ -13,6 +13,7 @@ app.use(express.json());
 app.use('/api/services', servicesRoute);
 app.use('/api/bookings', bookingsRoute);
 app.use('/api/driver-applications', driverApplicationsRoute);
+
 app.get('/api/health', (req, res) => {
   res.json({
     status: 'ok',
@@ -29,8 +30,11 @@ const PORT = process.env.PORT || 5000;
 
 async function start() {
   await connectDB();
-  app.listen(PORT, () => {
+  
+  // 🚨 THIS IS THE FIX: Added '0.0.0.0'
+  app.listen(PORT, '0.0.0.0', () => {
     console.log(`🚀 Server running at http://localhost:${PORT}`);
+    console.log(`🌐 Network access: http://192.168.2.136:${PORT}`);
   });
 }
 

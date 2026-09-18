@@ -272,9 +272,9 @@ export function Hero() {
               initial={reduced ? false : { opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-              className="eyebrow text-white/70"
+              className="eyebrow text-white/100"
             >
-              Lagos moves with CTC
+              <b>Lagos moves with CTC</b>
             </motion.div>
 
             <motion.h1
@@ -289,7 +289,7 @@ export function Hero() {
               <span className="inline-flex flex-wrap items-baseline gap-x-4">
                 <span className="text-white/55 font-normal">Handled</span>
                 <RotatingWord
-                  words={['With Ease.', 'For Work.', 'For Travel.', 'For Delivery.']}
+                  words={['With Care','With Ease.', 'For Work.', 'For Travel.', 'For Delivery.',]}
                   className="text-brand"
                 />
               </span>
@@ -319,6 +319,7 @@ export function Hero() {
                   className="btn btn--brand"
                   onClick={() => track('cta_click', { cta: 'hero_book' })}
                 >
+                  
                   Book a Ride
                   <Icon name="arrow-right" size={17} />
                 </a>
