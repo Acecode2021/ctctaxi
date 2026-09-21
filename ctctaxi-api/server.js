@@ -5,6 +5,7 @@ const connectDB = require('./config/db');
 const servicesRoute = require('./routes/services');
 const bookingsRoute = require('./routes/bookings');
 const driverApplicationsRoute = require('./routes/driverApplications');
+const contactRoute = require('./routes/contact');
 const app = express();
 
 app.use(cors());
@@ -13,6 +14,7 @@ app.use(express.json());
 app.use('/api/services', servicesRoute);
 app.use('/api/bookings', bookingsRoute);
 app.use('/api/driver-applications', driverApplicationsRoute);
+app.use('/api/contact', contactRoute);
 
 app.get('/api/health', (req, res) => {
   res.json({

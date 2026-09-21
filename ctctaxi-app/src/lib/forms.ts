@@ -108,15 +108,12 @@ export function validateDriver(v: DriverValues): Errors<DriverValues> {
 
 export type SubmitResult = { ok: boolean; error?: string };
 
-const ENDPOINT = import.meta.env.VITE_API_URL as string | undefined;
-
 /**
- * Posts a submission to the configured endpoint.
+ * Posts a submission to the API endpoint for the selected form.
  *
- * Set VITE_FORM_ENDPOINT in your environment (Formspree, Netlify Forms,
- * a Cloudflare Worker, or your own API) to go live. With no endpoint
- * configured the form resolves locally so the UI can be reviewed end to end,
- * and logs a clear warning rather than pretending the data was captured.
+ * The booking and driver forms use their dedicated API routes. Contact
+ * enquiries use the API contact route so they are stored with the other
+ * submissions.
  */
 export async function submitForm(
   form: 'booking' | 'driver' | 'contact',
@@ -130,13 +127,15 @@ export async function submitForm(
     referrer: typeof document !== 'undefined' ? document.referrer : '',
   };
 
-  if (!ENDPOINT) {
+  const route = form === 'contact' ? 'contact' : form === 'driver' ? 'driver-applications' : 'bookings';
+  const endpoint = `${API_BASE_URL}/api/${route}`;
+
+  if (!API_BASE_URL) {
     await new Promise((r) => setTimeout(r, 900));
     if (import.meta.env.DEV) {
       // eslint-disable-next-line no-console
       console.warn(
-        '[CTC Taxi] No VITE_FORM_ENDPOINT configured — submission was not transmitted.\n' +
-          'Add the variable to .env to connect the form. Payload that would have been sent:',
+        '[CTC Taxi] No API endpoint configured — submission was not transmitted. Payload that would have been sent:',
         payload,
       );
     }
@@ -144,7 +143,7 @@ export async function submitForm(
   }
 
   try {
-    const res = await fetch(ENDPOINT, {
+    const res = await fetch(endpoint, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
       body: JSON.stringify(payload),
