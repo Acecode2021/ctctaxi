@@ -128,16 +128,6 @@ export function QuickBook() {
             >
               <Icon name="phone" size={15} /> Call us now
             </a>
-            <button
-              type="button"
-              className="btn btn--outline btn--sm"
-              onClick={() => {
-                setV(EMPTY);
-                setStatus('idle');
-              }}
-            >
-              Book another ride
-            </button>
           </div>
         </motion.div>
       </Card>
