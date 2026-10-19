@@ -8,10 +8,9 @@ const LINKS = [
   { label: 'Home', href: '#top' },
   { label: 'Services', href: '#services' },
   { label: 'Download App', href: '#apps' },
-  { label: 'Airport Routes', href: '#airport' },
-  { label: 'Corporate', href: '#corporate' },
+  { label: 'Contact', href: '#contact' },
+  { label: 'Blog', href: '#blog' },
   { label: 'Safety', href: '#safety' },
-  { label: 'Drive With CTC', href: '#drive' },
   { label: 'About Us', href: '#about' },
 ];
 
@@ -170,9 +169,9 @@ export function Nav() {
 
             <Magnetic strength={0.22}>
               <a
-                href="quickbook.tsx"
+                href="#book"
                 className="btn btn--brand btn--sm hidden sm:inline-flex"
-                onClick={() => track('cta_click', { cta: 'nav_book' })}
+                onClick={() => track('cta_click', { cta: '#book' })}
               >
                 Book a Ride
               </a>

@@ -276,7 +276,7 @@ export const REVIEWS: Review[] = [
     verified: true,
   },
   {
-    name: 'Tamara karina',
+    name: 'Tamara karena',
     location: 'Lagos',
     rating: 5,
     body: 'This is down to their excellent service, competitive pricing and customer support. It is thoroughly refreshing to get such a personal touch.',

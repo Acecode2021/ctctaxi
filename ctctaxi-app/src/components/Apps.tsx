@@ -14,7 +14,7 @@ export function AppDownloadStrip() {
     <section
       id="download"
       aria-label="Download the CTC apps"
-      style={{ background: '#fff', borderBottom: '1px solid var(--color-line)' }}
+      style={{ background: '#f8d6d6', borderBottom: '1px solid var(--color-line)' }}
     >
       <div className="shell">
         <div className="grid gap-6 items-center py-8 lg:grid-cols-[auto_1fr_auto] lg:py-9">
@@ -184,10 +184,6 @@ const APPS_DETAIL: AppDef[] = [
         title: 'Turn-by-turn navigation',
         body: 'Guidance to the pickup point and on to the drop-off, so you are never hunting for an address.',
       },
-      
-       
-        
-      
       {
         icon: 'calendar',
         title: 'Airport and corporate jobs',
@@ -221,7 +217,7 @@ function AppColumn({ app, index }: { app: AppDef; index: number }) {
       as="article"
       delay={index * 0.08}
       className="card flex flex-col overflow-hidden"
-      >
+    >
       <div style={{ borderTop: `3px solid ${accent}` }} />
 
       {/* header */}
@@ -289,7 +285,7 @@ function AppColumn({ app, index }: { app: AppDef; index: number }) {
 
       {/* screenshots */}
       <div className="px-6 sm:px-8 pb-6">
-        <div className={`grid gap-3 ${app.shots.length > 1 ? 'grid-cols-2' : 'grid-cols-2'}`}>
+        <div className="grid gap-3 grid-cols-2">
           {app.shots.map((s) => (
             <img
               key={s.src}

@@ -10,6 +10,8 @@ export type AnalyticsEvent =
   | 'booking_started'
   | 'booking_submitted'
   | 'booking_failed'
+  | 'service_selected'
+  | 'booking_success'
   | 'phone_click'
   | 'whatsapp_click'
   | 'driver_application_started'
@@ -18,7 +20,10 @@ export type AnalyticsEvent =
   | 'service_card_open'
   | 'faq_open'
   | 'cta_click'
-  | 'form_error';
+  | 'form_error'
+  | 'blog_source_click'
+  | 'blog_open'
+  | 'blog_filter';
 
 type Payload = Record<string, string | number | boolean | undefined>;
 

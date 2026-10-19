@@ -247,10 +247,16 @@ export function Hero() {
   const contentOpacity = useTransform(scrollYProgress, [0, 0.75], [1, reduced ? 1 : 0]);
 
   return (
+    // 🔑 FIXES:
+    // • Removed `overflow-hidden` — was clipping the QuickBook card's bottom.
+    // • Added `z-10` — makes Hero paint ABOVE the next section (TrustStrip)
+    //   where the QuickBook card overlaps it via the negative margin.
+    // • Kept `isolate` — Hero is still its own stacking context, so children
+    //   can't escape into the parent.
     <section
       id="top"
       ref={ref}
-      className="relative isolate overflow-hidden"
+      className="relative isolate z-10"
       style={{ background: 'var(--color-ink)' }}
     >
       <HeroMedia />
@@ -319,7 +325,6 @@ export function Hero() {
                   className="btn btn--brand"
                   onClick={() => track('cta_click', { cta: 'hero_book' })}
                 >
-                  
                   Book a Ride
                   <Icon name="arrow-right" size={17} />
                 </a>
@@ -333,7 +338,6 @@ export function Hero() {
               </a>
             </motion.div>
 
-            {/* Trust indicators */}
             {/* App download — a real, prominent path for visitors who want the app */}
             <motion.div
               initial={reduced ? false : { opacity: 0, y: 18 }}
@@ -410,7 +414,11 @@ export function Hero() {
       </div>
 
       {/* Floating quick-booking card, pulled up over the hero floor */}
-      <div className="relative z-20 shell" style={{ marginBottom: 'clamp(-118px, -7vw, -76px)' }}>
+      <div
+        id="book"
+        className="relative z-20 shell"
+        style={{ marginBottom: 'clamp(-118px, -7vw, -76px)' }}
+      >
         <QuickBook />
       </div>
     </section>

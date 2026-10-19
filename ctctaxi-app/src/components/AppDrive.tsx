@@ -1,8 +1,8 @@
-import { AnimatePresence, motion, useReducedMotion } from 'framer-motion';
+import { AnimatePresence, motion } from 'framer-motion';
 import { useState, type FormEvent } from 'react';
 import { Icon, PlayGlyph, Reveal, SectionHead } from './primitives';
 import { IMG, srcset } from '../assets/images';
-import { AREAS, DRIVER_BENEFITS } from '../lib/data';
+import { DRIVER_BENEFITS } from '../lib/data';
 import {
   API_BASE_URL,
   CAPTURE,
@@ -12,202 +12,6 @@ import {
   type Errors,
 } from '../lib/forms';
 import { APPS, CONTACT, track } from '../lib/analytics';
-
-/* ==========================================================================
-   LAGOS SERVICE AREA MAP
-   ========================================================================== */
-
-export function LagosMap() {
-  const [hover, setHover] = useState<string | null>(null);
-  const reduced = useReducedMotion();
-
-  // Illustrative positions only — NOT a coverage guarantee.
-  const PINS = [
-    { n: 'Ikeja', x: 118, y: 74 },
-    { n: 'Magodo', x: 92, y: 52 },
-    { n: 'Yaba', x: 176, y: 156 },
-    { n: 'Victoria Island', x: 268, y: 208 },
-    { n: 'Ikoyi', x: 246, y: 190 },
-    { n: 'Lekki', x: 330, y: 236 },
-    { n: 'Ajah', x: 392, y: 268 },
-    { n: 'Festac', x: 96, y: 250 },
-    { n: 'Apapa', x: 150, y: 258 },
-    { n: 'Amuwo Odofin', x: 74, y: 232 },
-    { n: 'Ago Palace Way', x: 66, y: 262 },
-    { n: 'Ikorodu Road', x: 250, y: 82 },
-    { n: 'Mushin', x: 148, y: 130 },
-    { n: 'Oshodi', x: 126, y: 116 },
-  ];
-
-  return (
-    <section id="about" className="section" style={{ background: 'var(--color-ink)' }}>
-      <div className="shell">
-        <SectionHead
-          dark
-          eyebrow="CTC in Lagos"
-          title={
-            <>
-              Moving Lagos.
-              <br />
-              One Journey At A Time.
-            </>
-          }
-          lede="We operate across Lagos State. These are the areas we move through most — if you are outside them, call and we will tell you honestly whether we can reach you."
-        />
-
-        <div className="mt-14 grid gap-10 lg:grid-cols-[1.25fr_1fr] lg:items-start" style={{ marginTop: 56 }}>
-          <Reveal>
-            <div
-              className="relative overflow-hidden rounded-lg"
-              style={{ borderRadius: 24, background: '#0b0b12' }}
-            >
-              <svg viewBox="0 0 460 320" className="w-full block" role="img" aria-label="Illustrative map of Lagos showing areas CTC Taxi serves">
-                <defs>
-                  <linearGradient id="lg-water" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="0" stopColor="#12121b" />
-                    <stop offset="1" stopColor="#0d0d15" />
-                  </linearGradient>
-                  <pattern id="lg-grid" width="40" height="40" patternUnits="userSpaceOnUse">
-                    <path d="M40 0H0V40" fill="none" stroke="rgba(255,255,255,.035)" strokeWidth="1" />
-                  </pattern>
-                </defs>
-                <rect width="460" height="320" fill="#0b0b12" />
-                <rect width="460" height="320" fill="url(#lg-grid)" />
-
-                {/* lagoon / water */}
-                <path
-                  d="M0 196 C86 178 150 212 230 224 C312 236 384 216 460 228 L460 320 L0 320 Z"
-                  fill="url(#lg-water)"
-                />
-                {/* land */}
-                <path
-                  d="M0 0 H460 V182 C384 198 318 172 246 178 C176 184 128 166 58 172 C38 174 18 176 0 178 Z"
-                  fill="#15151f"
-                />
-
-                {/* routes */}
-                <g stroke="rgba(255,255,255,.06)" strokeWidth="7" fill="none" strokeLinecap="round">
-                  <path d="M20 120 C140 96 280 130 440 100" />
-                  <path d="M150 20 C176 90 196 140 216 180" />
-                </g>
-
-                {/* animated route lines between key nodes */}
-                <g className="route-anim" fill="none" stroke="var(--color-brand)" strokeWidth="1.9" opacity=".8">
-                  <path d="M118 74 C170 110 220 160 268 208" />
-                  <path d="M176 156 C220 184 280 214 330 236" />
-                </g>
-                <g className="route-anim" fill="none" stroke="rgba(255,255,255,.28)" strokeWidth="1.4" style={{ animationDelay: '-2.4s' }}>
-                  <path d="M74 232 C110 200 140 150 176 156" />
-                  <path d="M250 82 C246 130 250 170 268 208" />
-                </g>
-
-                {/* area pins */}
-                {PINS.map((p, i) => (
-                  <g
-                    key={p.n}
-                    onMouseEnter={() => setHover(p.n)}
-                    onMouseLeave={() => setHover(null)}
-                    style={{ cursor: 'pointer' }}
-                  >
-                    {!reduced && (
-                      <circle
-                        className="ping"
-                        cx={p.x}
-                        cy={p.y}
-                        r="4.5"
-                        fill="var(--color-brand)"
-                        opacity=".45"
-                        style={{ animationDelay: `${i * 0.24}s` }}
-                      />
-                    )}
-                    <circle
-                      cx={p.x}
-                      cy={p.y}
-                      r={hover === p.n ? 6 : 4.5}
-                      fill={hover === p.n ? '#fff' : 'var(--color-brand)'}
-                      style={{ transition: 'r .2s, fill .2s' }}
-                    />
-                    <circle cx={p.x} cy={p.y} r="14" fill="transparent" />
-                  </g>
-                ))}
-
-                {/* active label */}
-                {hover && (
-                  <g>
-                    {(() => {
-                      const p = PINS.find((x) => x.n === hover)!;
-                      const w = hover.length * 7.4 + 22;
-                      const lx = Math.min(Math.max(p.x - w / 2, 6), 460 - w - 6);
-                      return (
-                        <>
-                          <rect x={lx} y={p.y - 34} width={w} height={24} rx="7" fill="#fff" opacity=".95" />
-                          <text
-                            x={lx + w / 2}
-                            y={p.y - 17}
-                            textAnchor="middle"
-                            fontSize="11.5"
-                            fontWeight="650"
-                            fill="#0b0b0f"
-                          >
-                            {hover}
-                          </text>
-                        </>
-                      );
-                    })()}
-                  </g>
-                )}
-              </svg>
-
-              <div className="absolute top-5 left-5">
-                <span className="glass tag" style={{ borderRadius: 999, padding: '7px 13px', color: '#fff' }}>
-                  <span className="inline-block rounded-full" style={{ width: 6, height: 6, background: '#7AC143' }} />
-                  Lagos State
-                </span>
-              </div>
-            </div>
-          </Reveal>
-
-          <Reveal delay={0.1}>
-            <h3 className="h3 text-white">Areas we move through</h3>
-            <ul className="mt-6 flex flex-wrap gap-2" style={{ marginTop: 24 }}>
-              {AREAS.map((a) => (
-                <li
-                  key={a}
-                  className="text-[0.82rem] px-3.5 py-2 rounded-full transition-colors"
-                  style={{
-                    border: '1px solid rgba(15, 15, 15, 0.14)',
-                    background: hover === a ? 'var(--color-brand)' : 'rgba(255,255,255,.04)',
-                    color: hover === a ? '#f7f5f5' : 'rgba(255,255,255,.72)',
-                    borderColor: hover === a ? 'var(--color-brand)' : 'rgba(255,255,255,.14)',
-                  }}
-                  onMouseEnter={() => setHover(a)}
-                  onMouseLeave={() => setHover(null)}
-                >
-                  {a}
-                </li>
-              ))}
-            </ul>
-            <p className="text-white/40 text-[0.79rem] leading-relaxed mt-7" style={{ marginTop: 28 }}>
-              The map is illustrative of the corridor we serve, not a coverage guarantee.
-              Pickup availability depends on cars on shift at the time — call us and we
-              will confirm before you commit.
-            </p>
-            <div className="mt-7 flex flex-wrap gap-3" style={{ marginTop: 28 }}>
-              <a href="#book" className="btn btn--brand btn--sm">Check my area</a>
-              <a
-                href={`tel:${CONTACT.phonePrimaryTel}`}
-                className="btn btn--ghost btn--sm"
-                onClick={() => track('phone_click', { source: 'lagos_map' })}
-              >
-                <Icon name="phone" size={15} /> {CONTACT.phonePrimary}
-              </a>
-            </div>
-          </Reveal>
-        </div>
-      </div>
-    </section>
-  );
-}
 
 /* ==========================================================================
    DRIVE WITH CTC — recruitment + application form
@@ -562,6 +366,333 @@ function DSelect({
         </p>
       )}
     </div>
+  );
+}
+
+/* ==========================================================================
+   LEADERSHIP — the About section
+
+   Scope, by request: no personal background, no upbringing, no career
+   history. One photograph. The focus is what the chairman has done for
+   CTC Taxi and the group around it.
+
+   Every line below is sourced. Do not embellish:
+
+     • Chairman & Group CEO, Countryside Group .... ctctaxi.com release;
+       Vanguard 23 Feb 2026; Punch 23 Feb 2026; Guardian NG 27 Jun 2026
+     • "High Chief Dr. Ndubisi George Ugo" ........ Guardian NG / Vanguard, Jun 2026
+     • "Dr. Blow Money" ........................... all of the above; IG @blowmoney001
+     • Own rider + driver apps .................... Play com.countryside.taxiuser,
+       com.countryside.taxidriver; App Store id1671325522
+     • B-Red group ambassador, 14 Feb 2026 ........ ctctaxi.com; Vanguard; Punch
+     • Fakepoco ambassador, Jun 2026 — named for
+       BlowPay, CTC Taxi and Countryside Travels .. Guardian NG; Vanguard; The Sun
+     • Laud Award, 13 May 2022, Lead City Univ. ... Vanguard, 10 May 2022
+     • 33rd National President, IMAN, Aug 2026 .... Vanguard 4 Oct 2026; The Sun
+     • WADA Ambassador (NDLEA) .................... Vanguard, 4 Oct 2026
+     • The pull quote ............................. ctctaxi.com; Vanguard; Punch
+
+   Deliberately absent: birth year, education, the body that awarded the
+   doctorate, and any founding date. Not found in any source — omitted
+   rather than guessed. Do not add them without a citation.
+
+   PHOTOGRAPH: cc ceo-chairman-*.webp is a crop of a two-person press photo
+   (he is holding a signed agreement with another party at the edge of
+   frame). It is the only real solo image of him in the public record —
+   there is no posed portrait. Swap in the company's own original before
+   launch; the shoot happened in CTC's own boardroom.
+   ========================================================================== */
+
+type LeadershipItem = { label: string; body: string; icon: string };
+
+const LEADERSHIP_ACHIEVEMENTS: LeadershipItem[] = [
+  {
+    label: 'Two apps, built in-house',
+    body: 'CTC Taxi ships its own rider and driver apps — published under the company\u2019s own developer accounts on Google Play, with the rider app live on the App Store.',
+    icon: 'download',
+  },
+  {
+    label: 'Real names on the brand',
+    body: 'Signed Afrobeats artist B-Red as Countryside Group\u2019s brand ambassador in February 2026, then entertainer Fakepoco in June 2026 — with CTC Taxi named in that deal.',
+    icon: 'star',
+  },
+  {
+    label: 'Recognised for building people',
+    body: 'Honoured at the Laud Awards in May 2022 for outstanding contributions to talent development and youth empowerment.',
+    icon: 'user',
+  },
+  {
+    label: 'A national voice',
+    body: 'Elected 33rd National President of the Importers Association of Nigeria in August 2026, and serves as a WADA Ambassador in the NDLEA\u2019s War Against Drug Abuse campaign.',
+    icon: 'globe',
+  },
+];
+
+const LEADERSHIP_GROUP: string[] = [
+  'CTC Taxi',
+  'BlowPay',
+  'CTC Autos',
+  'Countryside Travels & Tours',
+  'Blow Money Records',
+  'Countryside Marine',
+];
+
+export function CeoAbout() {
+  return (
+    <section
+      id="leadership"
+      className="section relative isolate overflow-hidden"
+      style={{ background: 'var(--color-ink-2)' }}
+    >
+      {/* ambient brand glow */}
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute"
+        style={{
+          top: '-12%',
+          left: '-8%',
+          width: '58%',
+          height: '78%',
+          background:
+            'radial-gradient(circle at 40% 40%, rgba(219,20,123,.30), rgba(219,20,123,0) 68%)',
+          filter: 'blur(24px)',
+        }}
+      />
+
+      <div className="shell relative">
+        <SectionHead
+          dark
+          eyebrow="Leadership"
+          title={
+            <>
+              The Chairman
+              <br />
+              Behind CTC Taxi.
+            </>
+          }
+          lede="CTC Taxi belongs to Countryside Group. The chairman who runs that group sets the direction for the fleet, the apps and the standards behind them."
+        />
+
+        <div
+          className="grid gap-12 lg:grid-cols-[minmax(0,.78fr)_minmax(0,1.22fr)] lg:items-center"
+          style={{ marginTop: 56 }}
+        >
+          {/* ---------------- The one photograph ---------------- */}
+          <Reveal>
+            <figure className="m-0 relative">
+              <div
+                className="relative overflow-hidden"
+                style={{
+                  borderRadius: 28,
+                  background: '#0b0b12',
+                  border: '1px solid rgba(219,20,123,.35)',
+                }}
+              >
+                <img
+                  src="/ceo.webp"
+                  alt="High Chief Dr. Ndubisi George Ugo, Chairman and Group Chief Executive Officer of Countryside Group, at the group headquarters in Lagos"
+                  loading="lazy"
+                  decoding="async"
+                  className="w-full block object-cover"
+                  style={{ aspectRatio: '4 / 5', objectPosition: '50% 12%' }}
+                />
+                <div
+                  className="absolute inset-x-0 bottom-0"
+                  style={{
+                    height: '40%',
+                    background: 'linear-gradient(to top, rgba(8,8,12,.88), rgba(8,8,12,0))',
+                  }}
+                />
+                <div className="absolute bottom-0 left-0 right-0 p-6">
+                  <div
+                    className="inline-flex items-center gap-2.5 px-4 py-2"
+                    style={{ borderRadius: 999, background: 'var(--color-brand)' }}
+                  >
+                    <Icon name="briefcase" size={14} className="text-white" />
+                    <span className="text-white text-[0.72rem] font-bold tracking-[0.1em] uppercase">
+                      Chairman &amp; Group CEO
+                    </span>
+                  </div>
+                </div>
+              </div>
+
+              <figcaption
+                className="mt-4 text-[0.8rem] leading-relaxed"
+                style={{ color: 'rgba(255,255,255,.44)' }}
+              >
+                Dr. Ndubisi at the Countryside Group headquarters, Lagos, June 2026.
+              </figcaption>
+            </figure>
+          </Reveal>
+
+          {/* ---------------- Name + intro + quote ---------------- */}
+          <div>
+            <Reveal>
+              <h3
+                className="text-white font-semibold tracking-tight"
+                style={{
+                  fontSize: 'clamp(1.6rem, 3.1vw, 2.7rem)',
+                  lineHeight: 1.06,
+                  letterSpacing: '-0.034em',
+                }}
+              >
+                High Chief Dr. Ndubisi George Ugo
+              </h3>
+
+              <p className="mt-3 text-[0.95rem] font-semibold" style={{ color: 'var(--color-brand)' }}>
+                Chairman &amp; Group Chief Executive Officer, Countryside Group
+              </p>
+
+              <p className="mt-2 text-[0.85rem]" style={{ color: 'rgba(255,255,255,.5)' }}>
+                Also known as <em>Dr. Blow Money</em>
+              </p>
+            </Reveal>
+
+            <Reveal delay={0.08}>
+              <p
+                className="mt-8 text-[1.05rem] leading-relaxed"
+                style={{ color: 'rgba(255,255,255,.74)', maxWidth: '58ch', marginTop: 32 }}
+              >
+                High Chief Dr. Ndubisi George Ugo — Dr. Blow Money to the people who
+                follow the group — is the Chairman and Group Chief Executive Officer of
+                Countryside Group, the parent company of CTC Taxi. He leads a portfolio
+                that runs from e-hailing and fintech to vehicle dealership, travel,
+                entertainment and marine logistics. CTC Taxi is the arm of it that
+                moves Lagos.
+              </p>
+            </Reveal>
+
+            <Reveal delay={0.14}>
+              <blockquote
+                style={{
+                  borderLeft: '3px solid var(--color-brand)',
+                  paddingLeft: 24,
+                  marginTop: 36,
+                }}
+              >
+                <p
+                  className="text-white font-medium"
+                  style={{
+                    fontSize: 'clamp(1.12rem, 1.9vw, 1.5rem)',
+                    lineHeight: 1.38,
+                    letterSpacing: '-0.02em',
+                  }}
+                >
+                  &ldquo;Countryside Group is building a global African brand rooted in
+                  innovation, credibility, and excellence.&rdquo;
+                </p>
+                <cite
+                  className="mt-4 block not-italic text-[0.78rem] font-semibold tracking-[0.08em] uppercase"
+                  style={{ color: 'rgba(255,255,255,.5)', marginTop: 16 }}
+                >
+                  Chief Dr. George Ndubisi — Chairman &amp; Group CEO
+                </cite>
+              </blockquote>
+            </Reveal>
+          </div>
+        </div>
+
+        {/* ---------------- What he has done for CTC Taxi ---------------- */}
+        <div style={{ marginTop: 80 }}>
+          <Reveal>
+            <span className="eyebrow text-white/60">On his watch</span>
+            <h3
+              className="text-white font-semibold mt-4"
+              style={{
+                fontSize: 'clamp(1.4rem, 2.6vw, 2.1rem)',
+                letterSpacing: '-0.03em',
+                lineHeight: 1.1,
+                marginTop: 16,
+              }}
+            >
+              What he has built here.
+            </h3>
+          </Reveal>
+
+          <div className="mt-8 grid gap-5 md:grid-cols-2" style={{ marginTop: 32 }}>
+            {LEADERSHIP_ACHIEVEMENTS.map((a, i) => (
+              <Reveal key={a.label} delay={0.05 + i * 0.06}>
+                <article
+                  className="h-full flex gap-5"
+                  style={{
+                    border: '1px solid rgba(255,255,255,.11)',
+                    background:
+                      'linear-gradient(150deg, rgba(219,20,123,.10), rgba(255,255,255,.03) 55%)',
+                    borderRadius: 22,
+                    padding: 26,
+                  }}
+                >
+                  <span
+                    className="inline-grid place-items-center shrink-0"
+                    style={{
+                      width: 44,
+                      height: 44,
+                      borderRadius: 14,
+                      background: 'var(--color-brand)',
+                      color: '#fff',
+                    }}
+                  >
+                    <Icon name={a.icon} size={20} />
+                  </span>
+                  <div>
+                    <h4
+                      className="text-white font-semibold"
+                      style={{ fontSize: '1.06rem', letterSpacing: '-0.022em' }}
+                    >
+                      {a.label}
+                    </h4>
+                    <p
+                      className="mt-2.5 text-[0.88rem] leading-relaxed"
+                      style={{ color: 'rgba(255,255,255,.62)', marginTop: 10 }}
+                    >
+                      {a.body}
+                    </p>
+                  </div>
+                </article>
+              </Reveal>
+            ))}
+          </div>
+        </div>
+
+        {/* ---------------- The group he leads ---------------- */}
+        <Reveal delay={0.08}>
+          <div
+            style={{
+              borderTop: '1px solid rgba(255,255,255,.1)',
+              paddingTop: 28,
+              marginTop: 56,
+            }}
+          >
+            <p className="text-[0.8rem] font-semibold" style={{ color: 'rgba(255,255,255,.5)' }}>
+              The group he leads
+            </p>
+            <ul
+              className="flex flex-wrap gap-2.5"
+              style={{ listStyle: 'none', padding: 0, marginTop: 14 }}
+            >
+              {LEADERSHIP_GROUP.map((g) => (
+                <li
+                  key={g}
+                  className="text-[0.84rem] font-medium"
+                  style={{
+                    color: g === 'CTC Taxi' ? '#fff' : 'rgba(255,255,255,.66)',
+                    background: g === 'CTC Taxi' ? 'var(--color-brand)' : 'rgba(255,255,255,.06)',
+                    border:
+                      g === 'CTC Taxi'
+                        ? '1px solid transparent'
+                        : '1px solid rgba(255,255,255,.12)',
+                    borderRadius: 999,
+                    padding: '9px 16px',
+                  }}
+                >
+                  {g}
+                </li>
+              ))}
+            </ul>
+          </div>
+        </Reveal>
+      </div>
+    </section>
   );
 }
 
