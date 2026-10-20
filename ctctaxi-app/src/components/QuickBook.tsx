@@ -690,7 +690,7 @@ export function QuickBook() {
         <LiveBadge />
       </div>
 
-      {/* Responsive: 2 cols on mobile, 4 on sm+ */}
+      {/* Responsive: 2 cols on mobile, 4 on sm+ */}      
       <fieldset
         className="mt-6 grid grid-cols-2 sm:grid-cols-4 gap-1.5"
         style={{ marginTop: 24, border: 'none', padding: 0 }}
