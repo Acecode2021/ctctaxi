@@ -2,23 +2,26 @@ const express = require('express');
 const router = express.Router();
 const Booking = require('../models/Booking');
 
-// POST /api/bookings — create a new booking
-router.post('/', async (req, res) => {
+router.post('/api/bookings', async (req, res) => {
   try {
-    const booking = await Booking.create(req.body);
-    res.status(201).json(booking);
-  } catch (err) {
-    res.status(400).json({ error: err.message });
-  }
-});
-
-// GET /api/bookings — list all bookings
-router.get('/', async (req, res) => {
-  try {
-    const bookings = await Booking.find().sort({ createdAt: -1 });
-    res.json(bookings);
-  } catch (err) {
-    res.status(500).json({ error: err.message });
+    // ✅ THIS IS THE FIX: Pass the entire req.body directly to Mongoose.
+    // This automatically includes corporate, airport, delivery, and notes.
+    const newBooking = new Booking(req.body); 
+    
+    const savedBooking = await newBooking.save();
+    
+    res.status(201).json({ 
+      success: true, 
+      message: 'Booking created successfully', 
+      data: savedBooking 
+    });
+  } catch (error) {
+    console.error('Booking Error:', error);
+    res.status(500).json({ 
+      success: false, 
+      error: 'Failed to create booking',
+      details: error.message 
+    });
   }
 });
 
