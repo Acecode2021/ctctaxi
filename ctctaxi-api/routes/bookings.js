@@ -2,12 +2,11 @@ const express = require('express');
 const router = express.Router();
 const Booking = require('../models/Booking');
 
-router.post('/api/bookings', async (req, res) => {
+// ✅ Notice it is '/' and NOT '/api/bookings'
+router.post('/', async (req, res) => {
   try {
-    // ✅ THIS IS THE FIX: Pass the entire req.body directly to Mongoose.
-    // This automatically includes corporate, airport, delivery, and notes.
+    // ✅ Pass the whole body so Mongoose saves corporate, notes, etc.
     const newBooking = new Booking(req.body); 
-    
     const savedBooking = await newBooking.save();
     
     res.status(201).json({ 

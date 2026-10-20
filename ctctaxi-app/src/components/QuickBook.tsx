@@ -617,7 +617,7 @@ export function QuickBook() {
             initial={reduced ? false : { opacity: 0, scale: 0.96 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-            className="py-6 text-center"
+            className="flex w-full flex-col items-center py-6 text-center"
             role="status"
             aria-live="polite"
           >
@@ -627,14 +627,23 @@ export function QuickBook() {
               Booking request received
             </h3>
 
-            <p className="lede mx-auto" style={{ marginTop: 12, maxWidth: '150  ch' }}>
+            <p
+              className="lede"
+              style={{
+                width: '100%',
+                maxWidth: '60ch',
+                margin: '12px auto 0',
+                textAlign: 'center',
+              }}
+            >
               Thank you
               {greetingName
                 ? `, heading ${isAirport && v.airportDirection === 'to' ? 'to' : 'from'} ${greetingName}`
-                : ''}
-              . We are confirming your {serviceWord(v.service)} now. You'll receive a call on{' '}
-              <strong>{v.phone || 'your number'}</strong> shortly to confirm your driver and
-              fare.
+                : ''}.
+              <br />
+              We are confirming your {serviceWord(v.service)} now.
+              <br />
+              You'll receive a call on <strong>{v.phone || 'your number'}</strong> shortly to confirm your driver and fare.
             </p>
 
             <BookingRef />
