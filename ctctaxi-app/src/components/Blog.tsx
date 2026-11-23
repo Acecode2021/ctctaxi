@@ -278,7 +278,7 @@ function Reader({ post, onClose }: { post: Post; onClose: () => void }) {
           </div>
 
           <div className="mt-8 flex flex-wrap gap-3" style={{ marginTop: 32 }}>
-            <a href="#book" className="btn btn--brand" onClick={onClose}>
+            <a href="/#book" className="btn btn--brand" onClick={onClose}>
               Book a Ride
             </a>
             <button type="button" className="btn btn--outline" onClick={onClose}>
@@ -553,13 +553,13 @@ export function Blog() {
             </div>
             <div className="flex flex-wrap gap-3 shrink-0">
               <a
-                href="#contact"
+                href="/contact#contact"
                 className="btn btn--brand"
                 onClick={() => track('cta_click', { cta: 'blog_press' })}
               >
                 Contact the desk
               </a>
-              <a href="#book" className="btn btn--outline">
+              <a href="/#book" className="btn btn--outline">
                 Book a Ride
               </a>
             </div>

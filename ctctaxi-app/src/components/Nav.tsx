@@ -1,17 +1,18 @@
 import { AnimatePresence, motion, useReducedMotion } from 'framer-motion';
 import { useEffect, useState } from 'react';
+import { useLocation } from 'react-router-dom';
 import { Icon, Magnetic } from './primitives';
 import { APPS, CONTACT, track } from '../lib/analytics';
 import { IMG } from '../assets/images';
 
 const LINKS = [
-  { label: 'Home', href: '#top' },
-  { label: 'Services', href: '#services' },
-  { label: 'Download App', href: '#apps' },
-  { label: 'Contact', href: '#contact' },
-  { label: 'Blog', href: '#blog' },
-  { label: 'Safety', href: '#safety' },
-  { label: 'About Us', href: '#about' },
+  { label: 'Home', href: '/', section: 'top' },
+  { label: 'Services', href: '/services#services', section: 'services' },
+  { label: 'Download App', href: '/#apps', section: 'apps' },
+  { label: 'Contact', href: '/contact#contact', section: 'contact' },
+  { label: 'Newsroom', href: '/newsroom#blog', section: 'blog' },
+  { label: 'Safety', href: '/services#safety', section: 'safety' },
+  { label: 'About Us', href: '/about#about', section: 'about' },
 ];
 
 export function Nav() {
@@ -19,6 +20,7 @@ export function Nav() {
   const [open, setOpen] = useState(false);
   const [active, setActive] = useState('#top');
   const reduced = useReducedMotion();
+  const location = useLocation();
 
   /* Solid bar after the hero begins to leave the viewport */
   useEffect(() => {
@@ -30,7 +32,7 @@ export function Nav() {
 
   /* Highlight the section currently in view */
   useEffect(() => {
-    const ids = LINKS.map((l) => l.href.slice(1));
+    const ids = LINKS.map((l) => l.section);
     const els = ids
       .map((id) => document.getElementById(id))
       .filter((e): e is HTMLElement => Boolean(e));
@@ -46,7 +48,7 @@ export function Nav() {
     );
     els.forEach((e) => io.observe(e));
     return () => io.disconnect();
-  }, []);
+  }, [location.pathname]);
 
   /* Lock body scroll + close on Escape while the mobile sheet is open */
   useEffect(() => {
@@ -63,7 +65,7 @@ export function Nav() {
 
   return (
     <>
-      <a href="#services" className="skip">
+      <a href="/services#services" className="skip">
         Skip to content
       </a>
 
@@ -80,7 +82,7 @@ export function Nav() {
         <div className="shell flex items-center justify-between gap-6" style={{ minHeight: 76 }}>
           {/* Brand */}
           <a
-            href="#top"
+            href="/"
             className="flex items-center gap-3 shrink-0"
             onClick={() => setOpen(false)}
             aria-label="CTC Taxi — home"
@@ -111,7 +113,7 @@ export function Nav() {
           {/* Desktop nav */}
           <nav className="hidden xl:flex items-center gap-6 flex-nowrap" aria-label="Primary">
             {LINKS.map((l) => {
-              const isActive = active === l.href;
+              const isActive = active === `#${l.section}`;
               return (
                 <a
                   key={l.href}
@@ -144,7 +146,7 @@ export function Nav() {
           {/* Right cluster */}
           <div className="flex items-center gap-2.5">
             <a
-              href="#contact"
+              href="/contact#contact"
               className="hidden lg:inline-flex items-center gap-2 text-[0.85rem] font-semibold px-3 py-2 rounded-full transition-colors"
               style={{ color: solid ? 'var(--color-fg-2)' : 'rgba(255,255,255,.8)' }}
               onClick={() => track('cta_click', { cta: 'nav_contact' })}
@@ -155,7 +157,7 @@ export function Nav() {
 
             {/* Become a Driver */}
             <a
-              href="#drive"
+              href="/drive#drive"
               className="btn btn--outline btn--sm hidden md:inline-flex"
               style={
                 solid
@@ -169,7 +171,7 @@ export function Nav() {
 
             <Magnetic strength={0.22}>
               <a
-                href="#book"
+                href="/#book"
                 className="btn btn--brand btn--sm hidden sm:inline-flex"
                 onClick={() => track('cta_click', { cta: '#book' })}
               >
@@ -260,7 +262,7 @@ export function Nav() {
                 className="mt-10 flex flex-col gap-3"
               >
                 <a
-                  href="#book"
+                  href="/#book"
                   className="btn btn--brand btn--block"
                   onClick={() => setOpen(false)}
                 >
@@ -268,7 +270,7 @@ export function Nav() {
                 </a>
 
                 <a
-                  href="#drive"
+                  href="/drive#drive"
                   className="btn btn--outline btn--block"
                   style={{ borderColor: 'rgba(255,255,255,.35)', color: '#fff' }}
                   onClick={() => {

@@ -64,8 +64,6 @@ export function track(event: AnalyticsEvent, payload: Payload = {}): void {
 export const CONTACT = {
   phonePrimary: '08039304425',
   phonePrimaryTel: '+2348039304425',
-  phoneSecondary: '07016363355',
-  phoneSecondaryTel: '+2347016363355',
   whatsapp: '2348039304425',
   email: 'info@ctctaxi.com',
   addressLines: [
@@ -74,6 +72,11 @@ export const CONTACT = {
     'Lagos, Nigeria',
   ],
   hours: 'Open 24 hours, 7 days',
+  sierraLeone: {
+    addressLines: ['7 Bah Drive, Off Spur Road,', 'Freetown, Sierra Leone'],
+    phonePrimary: '+23280199718',
+    phoneSecondary: '+23280199540',
+  },
 } as const;
 
 export const APPS = {
@@ -82,6 +85,7 @@ export const APPS = {
   riderAppStore: 'https://apps.apple.com/ng/app/ctc-taxi-ride-with-ease/id1671325522',
   driverPlay:
     'https://play.google.com/store/apps/details?id=com.countryside.taxidriver',
+  driverAppStore: 'https://apps.apple.com/ng/app/ctc-driver-earn-with-ease/id6445862619',
 } as const;
 
 /**

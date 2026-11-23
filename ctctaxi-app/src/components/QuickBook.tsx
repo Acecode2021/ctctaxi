@@ -86,19 +86,40 @@ const AIRPORTS: readonly {
   group: string;
   code: string;
 }[] = [
-  { value: 'los-intl', label: "Murtala Muhammed Int'l (LOS) — Ikeja, Lagos", group: 'International', code: 'LOS' },
-  { value: 'abv-intl', label: "Nnamdi Azikiwe Int'l (ABV) — Abuja", group: 'International', code: 'ABV' },
-  { value: 'phc-intl', label: "Port Harcourt Int'l (PHC) — Omagwa", group: 'International', code: 'PHC' },
-  { value: 'kan-intl', label: "Mallam Aminu Kano Int'l (KAN) — Kano", group: 'International', code: 'KAN' },
-  { value: 'enu-intl', label: "Akanu Ibiam Int'l (ENU) — Enugu", group: 'International', code: 'ENU' },
-  { value: 'los-dom', label: 'MMA Domestic 1 (LOS) — Ikeja, Lagos', group: 'Local / Domestic', code: 'LOS' },
-  { value: 'mma2', label: 'MMA2 Domestic (LOS) — Ikeja, Lagos', group: 'Local / Domestic', code: 'LOS' },
-  { value: 'abv-dom', label: 'Abuja Domestic (ABV) — Abuja', group: 'Local / Domestic', code: 'ABV' },
-  { value: 'phc-dom', label: 'Port Harcourt Domestic (PHC)', group: 'Local / Domestic', code: 'PHC' },
-  { value: 'bni', label: 'Benin Airport (BNI) — Benin City', group: 'Local / Domestic', code: 'BNI' },
-  { value: 'abb', label: "Asaba Int'l (ABB) — Asaba", group: 'Local / Domestic', code: 'ABB' },
-  { value: 'iba', label: 'Ibadan Airport (IBA) — Ibadan', group: 'Local / Domestic', code: 'IBA' },
-  { value: 'other-airport', label: 'Other airport / airstrip', group: 'Local / Domestic', code: '' },
+  // Major International Airports
+  { value: 'los', label: "Murtala Muhammed Int'l (LOS)", group: 'Major International', code: 'LOS' },
+  { value: 'abv', label: "Nnamdi Azikiwe Int'l (ABV)", group: 'Major International', code: 'ABV' },
+  { value: 'kan', label: "Mallam Aminu Kano Int'l (KAN)", group: 'Major International', code: 'KAN' },
+  { value: 'phc', label: "Port Harcourt Int'l (PHC)", group: 'Major International', code: 'PHC' },
+  { value: 'enu', label: "Akanu Ibiam Int'l (ENU)", group: 'Major International', code: 'ENU' },
+  { value: 'sko', label: "Sadiq Abubakar III Int'l (SKO)", group: 'Major International', code: 'SKO' },
+  { value: 'ilr', label: "General Tunde Idiagbon Int'l (ILR)", group: 'Major International', code: 'ILR' },
+  { value: 'kad', label: "Kaduna Int'l (KAD)", group: 'Major International', code: 'KAD' },
+  { value: 'miu', label: "Maiduguri Int'l (MIU)", group: 'Major International', code: 'MIU' },
+  { value: 'yol', label: "Yola Airport (YOL)", group: 'Major International', code: 'YOL' },
+  { value: 'gmo', label: "Gombe Lawanti Int'l (GMO)", group: 'Major International', code: 'GMO' },
+  { value: 'qow', label: "Sam Mbakwe Int'l Cargo (QOW)", group: 'Major International', code: 'QOW' },
+  { value: 'quo', label: "Victor Attah Int'l (QUO)", group: 'Major International', code: 'QUO' },
+  { value: 'anambra', label: "Chinua Achebe Int'l (Anambra)", group: 'Major International', code: '' },
+  { value: 'gwi', label: "Gateway Int'l (GWI)", group: 'Major International', code: 'GWI' },
+  { value: 'ebonyi', label: "Ebonyi State Int'l", group: 'Major International', code: '' },
+  
+  // Key Domestic and Regional Airports
+  { value: 'bni', label: 'Benin Airport (BNI)', group: 'Domestic & Regional', code: 'BNI' },
+  { value: 'iba', label: 'Ibadan Airport (IBA)', group: 'Domestic & Regional', code: 'IBA' },
+  { value: 'cbq', label: 'Margaret Ekpo Int\'l (CBQ)', group: 'Domestic & Regional', code: 'CBQ' },
+  { value: 'jos', label: 'Yakubu Gowon Airport (JOS)', group: 'Domestic & Regional', code: 'JOS' },
+  { value: 'akr', label: 'Akure Airport (AKR)', group: 'Domestic & Regional', code: 'AKR' },
+  { value: 'abb', label: 'Asaba International Airport (ABB)', group: 'Domestic & Regional', code: 'ABB' },
+  { value: 'qrw', label: 'Warri Airport (QRW)', group: 'Domestic & Regional', code: 'QRW' },
+  { value: 'dka', label: 'Katsina Airport (DKA)', group: 'Domestic & Regional', code: 'DKA' },
+  { value: 'mxj', label: 'Minna Airport (MXJ)', group: 'Domestic & Regional', code: 'MXJ' },
+  { value: 'mdi', label: 'Makurdi Airport (MDI)', group: 'Domestic & Regional', code: 'MDI' },
+  { value: 'bcu', label: 'Sir Abubakar Tafawa Balewa Airport (BCU)', group: 'Domestic & Regional', code: 'BCU' },
+  { value: 'lafia', label: 'Lafia Cargo Airport', group: 'Domestic & Regional', code: '' },
+
+  // Fallback
+  { value: 'other-airport', label: 'Other airport / airstrip', group: 'Domestic & Regional', code: '' },
 ] as const;
 
 const AIRPORT_GROUPS = (() => {
@@ -606,9 +627,6 @@ export function QuickBook() {
   }, [isAirport, v.airportOtherLocation, v.pickup]);
 
   /* -------- SUCCESS STATE -------- */
-  // 🔑 FIX: The success card is now wrapped in a full-width flex container
-  // that centers it both horizontally AND vertically, so it no longer
-  // inherits the two-column position from the form layout.
   if (status === 'success') {
     return (
       <div className="w-full min-h-[60vh] flex items-center justify-center px-4">
@@ -699,7 +717,6 @@ export function QuickBook() {
         <LiveBadge />
       </div>
 
-      {/* Responsive: 2 cols on mobile, 4 on sm+ */}      
       <fieldset
         className="mt-6 grid grid-cols-2 sm:grid-cols-4 gap-1.5"
         style={{ marginTop: 24, border: 'none', padding: 0 }}
@@ -1001,6 +1018,7 @@ export function QuickBook() {
             className="btn btn--outline btn--sm"
             onClick={() => track('whatsapp_click', { source: 'quick_book' })}
           >
+            WhatsApp us
           </a>
           <a
             href={`tel:${CONTACT.phonePrimaryTel}`}
@@ -1048,7 +1066,6 @@ function AirportDirectionSelector({
   return (
     <>
       <SectionLabel>Airport transfer</SectionLabel>
-      {/* Responsive: stack on mobile, 2-col on sm+ */}
       <fieldset
         className="grid grid-cols-1 sm:grid-cols-2 gap-1.5"
         role="radiogroup"

@@ -4,20 +4,86 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
     <meta name="theme-color" content="#08080C" />
-    <title>CTC Taxi — Your Journey, Handled With Ease | Lagos</title>
-    <meta name="description" content="Reliable everyday rides, airport transfers, corporate transportation and delivery services across Lagos. Professional drivers, GPS-tracked vehicles, scheduled pickups. Book online, by phone or in the CTC Taxi app." />
+    
+    <!-- Updated Title & Description for both locations -->
+    <title>CTC Taxi — Your Journey, Handled With Ease | Lagos & Sierra Leone</title>
+    <meta name="description" content="Reliable everyday rides, airport transfers, corporate transportation and delivery services across Lagos, Nigeria and Freetown, Sierra Leone. Professional drivers, GPS-tracked vehicles. Book online, by phone or in the CTC Taxi app." />
+    
     <link rel="canonical" href="https://ctctaxi.com/" />
     <meta name="robots" content="index, follow, max-image-preview:large" />
 
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="CTC Taxi" />
     <meta property="og:title" content="CTC Taxi — Your Journey, Handled With Ease" />
-    <meta property="og:description" content="Everyday rides, airport transfers, corporate transport and delivery across Lagos. Book online, by phone or in the app." />
+    <meta property="og:description" content="Everyday rides, airport transfers, corporate transport and delivery across Lagos and Freetown. Book online, by phone or in the app." />
     <meta property="og:url" content="https://ctctaxi.com/" />
     <meta property="og:locale" content="en_NG" />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="CTC Taxi — Your Journey, Handled With Ease" />
-    <meta name="twitter:description" content="Everyday rides, airport transfers, corporate transport and delivery across Lagos." />
+    <meta name="twitter:description" content="Everyday rides, airport transfers, corporate transport and delivery across Lagos and Freetown." />
+
+    <!-- Structured Data for Google Knowledge Panel (Nigeria & Sierra Leone) -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "TaxiService",
+          "@id": "https://ctctaxi.com/#nigeria",
+          "name": "Countryside Taxi Company Ltd (CTC Taxi) - Nigeria",
+          "image": "https://ctctaxi.com/logo.png",
+          "url": "https://ctctaxi.com",
+          "telephone": "+2348039304425",
+          "priceRange": "$$",
+          "address": {
+            "@type": "PostalAddress",
+            "streetAddress": "Plot 25 Ojefia Crescent, Victory Estate, Amuwo Odofin, Ago Palace Way",
+            "addressLocality": "Lagos",
+            "addressRegion": "Lagos",
+            "postalCode": "100001",
+            "addressCountry": "NG"
+          },
+          "geo": {
+            "@type": "GeoCoordinates",
+            "latitude": 6.4667,
+            "longitude": 3.2833
+          },
+          "openingHoursSpecification": {
+            "@type": "OpeningHoursSpecification",
+            "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
+            "opens": "00:00",
+            "closes": "23:59"
+          },
+          "sameAs": [
+            "https://www.facebook.com/ctctaxi",
+            "https://www.instagram.com/ctctaxiofficial",
+            "https://x.com/ctctaxi"
+          ]
+        },
+        {
+          "@type": "TaxiService",
+          "@id": "https://ctctaxi.com/#sierraleone",
+          "name": "Countryside Taxi Company Ltd (CTC Taxi) - Sierra Leone",
+          "image": "https://ctctaxi.com/logo.png",
+          "url": "https://ctctaxi.com",
+          "telephone": "+23280199718",
+          "priceRange": "$$",
+          "address": {
+            "@type": "PostalAddress",
+            "streetAddress": "7 Bah Drive, Off Spur Road",
+            "addressLocality": "Freetown",
+            "addressCountry": "SL"
+          },
+          "openingHoursSpecification": {
+            "@type": "OpeningHoursSpecification",
+            "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
+            "opens": "00:00",
+            "closes": "23:59"
+          }
+        }
+      ]
+    }
+    </script>
 
     <link rel="icon" type="image/png" href="/favicon.png" />
     <link rel="apple-touch-icon" href="/favicon.png" />

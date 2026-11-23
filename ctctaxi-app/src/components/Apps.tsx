@@ -5,8 +5,6 @@ import { APPS, CONTACT, track } from '../lib/analytics';
 
 /* ==========================================================================
    APP DOWNLOAD STRIP
-   A slim, permanent prompt directly under the hero. Parses in one glance:
-   there are two apps, and here is which one you want.
    ========================================================================== */
 
 export function AppDownloadStrip() {
@@ -83,7 +81,17 @@ export function AppDownloadStrip() {
               onClick={() => track('app_download_click', { platform: 'play', app: 'driver', source: 'strip' })}
               aria-label="Get the CTC Driver app on Google Play"
             >
-              Driver app
+              Driver Google Play
+            </a>
+            <a
+              href={APPS.driverAppStore}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="btn btn--outline btn--sm"
+              onClick={() => track('app_download_click', { platform: 'appstore', app: 'driver', source: 'strip' })}
+              aria-label="Get the CTC Driver app on the App Store"
+            >
+              Driver App Store
             </a>
           </Reveal>
         </div>
@@ -93,7 +101,7 @@ export function AppDownloadStrip() {
 }
 
 /* ==========================================================================
-   THE TWO APPS — a full explanation of what each one is for
+   THE TWO APPS
    ========================================================================== */
 
 type AppDef = {
@@ -125,36 +133,12 @@ const APPS_DETAIL: AppDef[] = [
     rating: '4.6★ Google Play · 5.0★ App Store',
     ratingSource: 'Published store ratings, September 2026',
     features: [
-      {
-        icon: 'pin',
-        title: 'Request now or schedule ahead',
-        body: 'Book a car for right now, or set a pickup up to 90 days in advance — useful for early flights and standing appointments.',
-      },
-      {
-        icon: 'user',
-        title: 'See your driver before they arrive',
-        body: 'Your driver’s name, photo, car and plate number are shown before the vehicle reaches you. No guessing which car is yours.',
-      },
-      {
-        icon: 'globe',
-        title: 'Live route tracking',
-        body: 'Follow the journey on the map from pickup to drop-off, so you always know the route being taken.',
-      },
-      {
-        icon: 'car',
-        title: 'Choose your vehicle class',
-        body: 'An executive saloon for one or two, a Sienna or SUV for a family, a minibus for a group. Pick the car that fits the trip.',
-      },
-      {
-        icon: 'rupee',
-        title: 'Fare agreed before you move',
-        body: 'The price is settled when you confirm. Cash, bank transfer or card — no meter, and no surge multiplier.',
-      },
-      {
-        icon: 'clock',
-        title: 'Your trip history and receipts',
-        body: 'Saved addresses, past journeys and a receipt the moment a trip ends — useful if your company reimburses travel.',
-      },
+      { icon: 'pin', title: 'Request now or schedule ahead', body: 'Book a car for right now, or set a pickup up to 90 days in advance — useful for early flights and standing appointments.' },
+      { icon: 'user', title: 'See your driver before they arrive', body: 'Your driver’s name, photo, car and plate number are shown before the vehicle reaches you. No guessing which car is yours.' },
+      { icon: 'globe', title: 'Live route tracking', body: 'Follow the journey on the map from pickup to drop-off, so you always know the route being taken.' },
+      { icon: 'car', title: 'Choose your vehicle class', body: 'An executive saloon for one or two, a Sienna or SUV for a family, a minibus for a group. Pick the car that fits the trip.' },
+      { icon: 'rupee', title: 'Fare agreed before you move', body: 'The price is settled when you confirm. Cash, bank transfer or card — no meter, and no surge multiplier.' },
+      { icon: 'clock', title: 'Your trip history and receipts', body: 'Saved addresses, past journeys and a receipt the moment a trip ends — useful if your company reimburses travel.' },
     ],
     platforms: { appStore: APPS.riderAppStore, play: APPS.riderPlay },
     shots: [
@@ -171,37 +155,17 @@ const APPS_DETAIL: AppDef[] = [
     purpose:
       'Built for people who want to earn from their car. It is the other half of the same system: the rider app sends the job, the driver app receives it, guides you there and handles the money split.',
     audience: 'For owner-drivers and drivers joining our fleet',
-    rating: '5.0★ Google Play',
+    rating: '5.0★ Google Play · 5.0★ App Store',
     ratingSource: 'Published store rating, September 2026',
     features: [
-      {
-        icon: 'briefcase',
-        title: 'Job offers with the fare shown',
-        body: 'See what a trip pays before you accept it. You decide what is worth your fuel and your time.',
-      },
-      {
-        icon: 'globe',
-        title: 'Turn-by-turn navigation',
-        body: 'Guidance to the pickup point and on to the drop-off, so you are never hunting for an address.',
-      },
-      {
-        icon: 'calendar',
-        title: 'Airport and corporate jobs',
-        body: 'Higher-value scheduled work — airport runs and staff transport — not only short city hops.',
-      },
-      {
-        icon: 'download',
-        title: 'Daily payouts, weekly statements',
-        body: 'Money you can plan around, plus a written record of every trip you have completed.',
-      },
-      {
-        icon: 'headset',
-        title: 'Support while you are on a trip',
-        body: 'A direct line to our team if something goes wrong mid-journey, rather than a form nobody answers.',
-      },
+      { icon: 'briefcase', title: 'Job offers with the fare shown', body: 'See what a trip pays before you accept it. You decide what is worth your fuel and your time.' },
+      { icon: 'globe', title: 'Turn-by-turn navigation', body: 'Guidance to the pickup point and on to the drop-off, so you are never hunting for an address.' },
+      { icon: 'calendar', title: 'Airport and corporate jobs', body: 'Higher-value scheduled work — airport runs and staff transport — not only short city hops.' },
+      { icon: 'download', title: 'Daily payouts, weekly statements', body: 'Money you can plan around, plus a written record of every trip you have completed.' },
+      { icon: 'headset', title: 'Support while you are on a trip', body: 'A direct line to our team if something goes wrong mid-journey, rather than a form nobody answers.' },
     ],
-    platforms: { play: APPS.driverPlay },
-    note: 'Android only for now. An iPhone version is not yet available.',
+    platforms: { appStore: APPS.driverAppStore, play: APPS.driverPlay },
+    
     shots: [{ src: IMG.shot_driver_1, alt: 'CTC Driver app showing a ride request on a Lagos map' }],
   },
 ];
@@ -213,144 +177,66 @@ function AppColumn({ app, index }: { app: AppDef; index: number }) {
   const softFg = brand ? 'var(--color-brand-700)' : '#3F6B17';
 
   return (
-    <Reveal
-      as="article"
-      delay={index * 0.08}
-      className="card flex flex-col overflow-hidden"
-    >
+    <Reveal as="article" delay={index * 0.08} className="card flex flex-col overflow-hidden">
       <div style={{ borderTop: `3px solid ${accent}` }} />
-
-      {/* header */}
       <div className="p-6 sm:p-8">
         <div className="flex items-start gap-4">
-          <img
-            src={app.icon}
-            alt=""
-            width={64}
-            height={64}
-            className="rounded-[15px] shrink-0"
-            style={{ width: 64, height: 64, boxShadow: '0 8px 20px -10px rgba(0,0,0,.45)' }}
-            loading="lazy"
-          />
+          <img src={app.icon} alt="" width={64} height={64} className="rounded-[15px] shrink-0" style={{ width: 64, height: 64, boxShadow: '0 8px 20px -10px rgba(0,0,0,.45)' }} loading="lazy" />
           <div className="min-w-0">
-            <span className="tag" style={{ background: softBg, color: softFg }}>
-              {app.tagline}
-            </span>
-            <h3 className="h3 mt-2.5" style={{ marginTop: 10 }}>
-              {app.name}
-            </h3>
+            <span className="tag" style={{ background: softBg, color: softFg }}>{app.tagline}</span>
+            <h3 className="h3 mt-2.5" style={{ marginTop: 10 }}>{app.name}</h3>
           </div>
         </div>
-
-        <p className="text-[0.72rem] font-bold tracking-[0.12em] uppercase mt-5" style={{ color: softFg, marginTop: 20 }}>
-          {app.audience}
-        </p>
-
-        <p className="text-[0.93rem] leading-relaxed mt-3" style={{ color: 'var(--color-fg-2)', marginTop: 12 }}>
-          {app.purpose}
-        </p>
-
+        <p className="text-[0.72rem] font-bold tracking-[0.12em] uppercase mt-5" style={{ color: softFg, marginTop: 20 }}>{app.audience}</p>
+        <p className="text-[0.93rem] leading-relaxed mt-3" style={{ color: 'var(--color-fg-2)', marginTop: 12 }}>{app.purpose}</p>
         <p className="text-[0.8rem] mt-3 flex items-center gap-2" style={{ color: 'var(--color-fg-3)', marginTop: 12 }}>
           <Icon name="star" size={13} className="shrink-0" />
-          <span>
-            <strong style={{ color: 'var(--color-fg)' }}>{app.rating}</strong> · {app.ratingSource}
-          </span>
+          <span><strong style={{ color: 'var(--color-fg)' }}>{app.rating}</strong> · {app.ratingSource}</span>
         </p>
       </div>
-
-      {/* features */}
       <div className="px-6 sm:px-8 pb-2">
-        <h4 className="text-[0.68rem] font-bold tracking-[0.14em] uppercase" style={{ color: 'var(--color-fg-3)' }}>
-          What it does
-        </h4>
+        <h4 className="text-[0.68rem] font-bold tracking-[0.14em] uppercase" style={{ color: 'var(--color-fg-3)' }}>What it does</h4>
       </div>
       <ul className="px-6 sm:px-8 pb-6 grid gap-4 flex-1" style={{ paddingTop: 16 }}>
         {app.features.map((f) => (
           <li key={f.title} className="flex gap-3.5">
-            <span
-              className="grid place-items-center rounded-[10px] shrink-0 mt-0.5"
-              style={{ width: 34, height: 34, background: softBg, color: softFg }}
-            >
+            <span className="grid place-items-center rounded-[10px] shrink-0 mt-0.5" style={{ width: 34, height: 34, background: softBg, color: softFg }}>
               <Icon name={f.icon} size={16} />
             </span>
             <div>
               <div className="font-semibold text-[0.9rem] leading-snug">{f.title}</div>
-              <div className="text-[0.855rem] leading-relaxed mt-1" style={{ color: 'var(--color-fg-2)' }}>
-                {f.body}
-              </div>
+              <div className="text-[0.855rem] leading-relaxed mt-1" style={{ color: 'var(--color-fg-2)' }}>{f.body}</div>
             </div>
           </li>
         ))}
       </ul>
-
-      {/* screenshots */}
       <div className="px-6 sm:px-8 pb-6">
         <div className="grid gap-3 grid-cols-2">
           {app.shots.map((s) => (
-            <img
-              key={s.src}
-              src={s.src}
-              alt={s.alt}
-              loading="lazy"
-              decoding="async"
-              className="w-full rounded-[12px]"
-              style={{ border: '1px solid var(--color-line)' }}
-            />
+            <img key={s.src} src={s.src} alt={s.alt} loading="lazy" decoding="async" className="w-full rounded-[12px]" style={{ border: '1px solid var(--color-line)' }} />
           ))}
           {app.shots.length === 1 && (
-            <div
-              className="rounded-[12px] grid place-items-center text-center p-5"
-              style={{ border: '1px dashed var(--color-line-strong)', background: 'var(--color-sand)' }}
-            >
-              <span className="text-[0.72rem] leading-relaxed font-semibold tracking-wide" style={{ color: 'var(--color-fg-3)' }}>
-                DRIVER APP
-                <br />
-                SCREENS
-                <br />
-                <span className="font-normal">to be supplied</span>
-              </span>
+            <div className="rounded-[12px] grid place-items-center text-center p-5" style={{ border: '1px dashed var(--color-line-strong)', background: 'var(--color-sand)' }}>
+              <span className="text-[0.72rem] leading-relaxed font-semibold tracking-wide" style={{ color: 'var(--color-fg-3)' }}>DRIVER APP<br />SCREENS<br /><span className="font-normal">to be supplied</span></span>
             </div>
           )}
         </div>
       </div>
-
-      {/* download */}
-      <div
-        className="mt-auto px-6 sm:px-8 py-6"
-        style={{ borderTop: '1px solid var(--color-line)', background: 'var(--color-sand)' }}
-      >
-        <p className="text-[0.68rem] font-bold tracking-[0.14em] uppercase mb-3" style={{ color: 'var(--color-fg-3)' }}>
-          {app.id === 'rider' ? 'Get the rider app' : 'Get the driver app'}
-        </p>
+      <div className="mt-auto px-6 sm:px-8 py-6" style={{ borderTop: '1px solid var(--color-line)', background: 'var(--color-sand)' }}>
+        <p className="text-[0.68rem] font-bold tracking-[0.14em] uppercase mb-3" style={{ color: 'var(--color-fg-3)' }}>{app.id === 'rider' ? 'Get the rider app' : 'Get the driver app'}</p>
         <div className="flex flex-wrap gap-2.5">
           {app.platforms.appStore && (
-            <a
-              href={app.platforms.appStore}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="btn btn--dark btn--sm"
-              onClick={() => track('app_download_click', { platform: 'appstore', app: app.id, source: 'apps_section' })}
-            >
+            <a href={app.platforms.appStore} target="_blank" rel="noopener noreferrer" className="btn btn--dark btn--sm" onClick={() => track('app_download_click', { platform: 'appstore', app: app.id, source: 'apps_section' })}>
               <AppleGlyph /> App Store
             </a>
           )}
           {app.platforms.play && (
-            <a
-              href={app.platforms.play}
-              target="_blank"
-              rel="noopener noreferrer"
-              className={app.platforms.appStore ? 'btn btn--outline btn--sm' : 'btn btn--dark btn--sm'}
-              onClick={() => track('app_download_click', { platform: 'play', app: app.id, source: 'apps_section' })}
-            >
+            <a href={app.platforms.play} target="_blank" rel="noopener noreferrer" className={app.platforms.appStore ? 'btn btn--outline btn--sm' : 'btn btn--dark btn--sm'} onClick={() => track('app_download_click', { platform: 'play', app: app.id, source: 'apps_section' })}>
               <PlayGlyph /> Google Play
             </a>
           )}
         </div>
-        {app.note && (
-          <p className="text-[0.75rem] leading-relaxed mt-3" style={{ color: 'var(--color-fg-3)', marginTop: 12 }}>
-            {app.note}
-          </p>
-        )}
+        {app.note && <p className="text-[0.75rem] leading-relaxed mt-3" style={{ color: 'var(--color-fg-3)', marginTop: 12 }}>{app.note}</p>}
       </div>
     </Reveal>
   );
@@ -364,13 +250,7 @@ export function TwoApps() {
       <div className="shell">
         <SectionHead
           eyebrow="Two apps, one service"
-          title={
-            <>
-              One sends the ride.
-              <br />
-              One earns from it.
-            </>
-          }
+          title={<>One sends the ride.<br />One earns from it.</>}
           lede="CTC runs both sides of the journey with two separate apps, both published by Countryside Taxi Company Ltd. Choose the one that matches what you need — or use this website and the phone, which work just as well."
         />
 
@@ -382,81 +262,84 @@ export function TwoApps() {
 
         {/* how the two connect */}
         <Reveal delay={0.1}>
-          <div
-            className="mt-8 rounded-lg p-7 sm:p-9"
-            style={{ background: 'var(--color-ink)', borderRadius: 24, marginTop: 32 }}
-          >
+          <div className="mt-8 rounded-lg p-7 sm:p-9" style={{ background: 'var(--color-ink)', borderRadius: 24, marginTop: 32 }}>
             <div className="grid gap-8 lg:grid-cols-[1fr_auto_1fr] lg:items-center">
               <div>
-                <span className="tag" style={{ background: 'rgba(219,20,123,.18)', color: '#F7A9D0' }}>
-                  Rider books
-                </span>
-                <p className="text-white/70 text-[0.92rem] leading-relaxed mt-3" style={{ marginTop: 12 }}>
-                  You enter your pickup, drop-off and time in the rider app. The fare is
-                  agreed at that moment.
-                </p>
+                <span className="tag" style={{ background: 'rgba(219,20,123,.18)', color: '#F7A9D0' }}>Rider books</span>
+                <p className="text-white/70 text-[0.92rem] leading-relaxed mt-3" style={{ marginTop: 12 }}>You enter your pickup, drop-off and time in the rider app. The fare is agreed at that moment.</p>
               </div>
-
               <div className="hidden lg:flex flex-col items-center gap-2 px-4">
-                <motion.span
-                  animate={reduced ? undefined : { x: [0, 10, 0] }}
-                  transition={{ duration: 2.4, repeat: Infinity, ease: 'easeInOut' }}
-                  style={{ color: 'var(--color-brand)' }}
-                >
+                <motion.span animate={reduced ? undefined : { x: [0, 10, 0] }} transition={{ duration: 2.4, repeat: Infinity, ease: 'easeInOut' }} style={{ color: 'var(--color-brand)' }}>
                   <Icon name="arrow-right" size={26} />
                 </motion.span>
-                <span className="font-mono text-[0.65rem] tracking-widest" style={{ color: 'rgba(255,255,255,.4)' }}>
-                  MATCHED
-                </span>
-                <motion.span
-                  animate={reduced ? undefined : { x: [-10, 0, -10] }}
-                  transition={{ duration: 2.4, repeat: Infinity, ease: 'easeInOut' }}
-                  style={{ color: 'var(--color-signal)' }}
-                >
+                <span className="font-mono text-[0.65rem] tracking-widest" style={{ color: 'rgba(255,255,255,.4)' }}>MATCHED</span>
+                <motion.span animate={reduced ? undefined : { x: [-10, 0, -10] }} transition={{ duration: 2.4, repeat: Infinity, ease: 'easeInOut' }} style={{ color: 'var(--color-signal)' }}>
                   <Icon name="arrow-right" size={26} className="rotate-180" />
                 </motion.span>
               </div>
-
               <div>
-                <span className="tag" style={{ background: 'rgba(122,193,67,.18)', color: '#9BE065' }}>
-                  Driver accepts
-                </span>
-                <p className="text-white/70 text-[0.92rem] leading-relaxed mt-3" style={{ marginTop: 12 }}>
-                  The nearest verified driver sees the job and the fare in the driver app,
-                  accepts it, and gets navigation to you.
-                </p>
+                <span className="tag" style={{ background: 'rgba(122,193,67,.18)', color: '#9BE065' }}>Driver accepts</span>
+                <p className="text-white/70 text-[0.92rem] leading-relaxed mt-3" style={{ marginTop: 12 }}>The nearest verified driver sees the job and the fare in the driver app, accepts it, and gets navigation to you.</p>
               </div>
             </div>
           </div>
         </Reveal>
 
-        {/* phone fallback */}
+        {/* phone fallback / contact details */}
         <Reveal delay={0.16}>
-          <div className="mt-8 flex flex-wrap items-center justify-between gap-5" style={{ marginTop: 32 }}>
-            <p className="text-[0.88rem] leading-relaxed max-w-[62ch]" style={{ color: 'var(--color-fg-2)' }}>
-              <strong className="font-semibold" style={{ color: 'var(--color-fg)' }}>
-                No smartphone, or prefer to talk to someone?
-              </strong>{' '}
-              You can book entirely by phone or by using the booking card on this page. The
-              apps add live tracking and saved trips — they are not required to ride with CTC.
+          <div className="mt-12" style={{ marginTop: 48 }}>
+            <h3 className="text-[1.2rem] font-semibold mb-2" style={{ color: 'var(--color-fg)' }}>
+              No smartphone, or prefer to talk to someone?
+            </h3>
+            <p className="text-[0.88rem] leading-relaxed mb-6 max-w-[62ch]" style={{ color: 'var(--color-fg-2)' }}>
+              You can book entirely by phone or by using the booking card on this page. The apps add live tracking and saved trips — they are not required to ride with CTC. Contact details for each market are below.
             </p>
-            <div className="flex flex-wrap gap-2.5">
-              <a
-                href={`tel:${CONTACT.phonePrimaryTel}`}
-                className="btn btn--dark btn--sm"
-                onClick={() => track('phone_click', { source: 'apps_section' })}
-              >
-                <Icon name="phone" size={15} /> {CONTACT.phonePrimary}
-              </a>
-              <a
-                href={`https://wa.me/${CONTACT.whatsapp}`}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="btn btn--outline btn--sm"
-                onClick={() => track('whatsapp_click', { source: 'apps_section' })}
-              >
-                WhatsApp
-              </a>
+
+            <div className="grid gap-6 md:grid-cols-2">
+              {/* Nigeria Contact Card */}
+              <div className="p-6 rounded-xl border" style={{ borderColor: 'var(--color-line)', background: 'var(--color-surface)' }}>
+                <div className="flex items-center gap-2 mb-3">
+                  <Icon name="globe" size={18} />
+                  <h4 className="font-semibold text-lg">Nigeria</h4>
+                </div>
+                <p className="text-[0.85rem] mb-4" style={{ color: 'var(--color-fg-2)' }}>
+                  {CONTACT.addressLines.join(' ')}
+                </p>
+                <div className="flex flex-col gap-2">
+                  <a href={`tel:${CONTACT.phonePrimaryTel}`} className="btn btn--dark btn--sm w-full justify-start" onClick={() => track('phone_click', { source: 'apps_section', branch: 'nigeria' })}>
+                    <Icon name="phone" size={15} /> {CONTACT.phonePrimary}
+                  </a>
+                  {CONTACT.whatsapp && (
+                    <a href={`https://wa.me/${CONTACT.whatsapp}?text=Hello%20CTC%20Taxi%20Nigeria`} target="_blank" rel="noopener noreferrer" className="btn btn--outline btn--sm w-full justify-start" onClick={() => track('whatsapp_click', { source: 'apps_section', branch: 'nigeria' })} style={{ borderColor: '#25D366', color: '#128C7E' }}>
+                      <Icon name="chat" size={15} /> WhatsApp NG
+                    </a>
+                  )}
+                </div>
+              </div>
+
+              {/* Sierra Leone Contact Card */}
+              <div className="p-6 rounded-xl border" style={{ borderColor: 'var(--color-line)', background: 'var(--color-surface)' }}>
+                <div className="flex items-center gap-2 mb-3">
+                  <Icon name="globe" size={18} />
+                  <h4 className="font-semibold text-lg">Sierra Leone</h4>
+                </div>
+                <p className="text-[0.85rem] mb-4" style={{ color: 'var(--color-fg-2)' }}>
+                  {CONTACT.sierraLeone.addressLines.join(' ')}
+                </p>
+                <div className="flex flex-col gap-2">
+                  <a href={`tel:${CONTACT.sierraLeone.phonePrimary}`} className="btn btn--dark btn--sm w-full justify-start" onClick={() => track('phone_click', { source: 'apps_section', branch: 'sierraleone' })}>
+                    <Icon name="phone" size={15} /> {CONTACT.sierraLeone.phonePrimary}
+                  </a>
+                  <a href={`tel:${CONTACT.sierraLeone.phoneSecondary}`} className="btn btn--dark btn--sm w-full justify-start" onClick={() => track('phone_click', { source: 'apps_section', branch: 'sierraleone' })}>
+                    <Icon name="phone" size={15} /> {CONTACT.sierraLeone.phoneSecondary}
+                  </a>
+                  <a href={`https://wa.me/${CONTACT.sierraLeone.phonePrimary.slice(1)}?text=Hello%20CTC%20Taxi%20Sierra%20Leone`} target="_blank" rel="noopener noreferrer" className="btn btn--outline btn--sm w-full justify-start" onClick={() => track('whatsapp_click', { source: 'apps_section', branch: 'sierraleone' })} style={{ borderColor: '#25D366', color: '#128C7E' }}>
+                    <Icon name="chat" size={15} /> WhatsApp SL
+                  </a>
+                
+                  
+                </div>
+              </div>
             </div>
           </div>
         </Reveal>
@@ -477,6 +360,14 @@ function PlayGlyph() {
   return (
     <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
       <path d="M3.6 1.8a1.2 1.2 0 0 0-.6 1.05v18.3a1.2 1.2 0 0 0 .6 1.05l10-10.2-10-10.2Zm11.4 9.05 2.9-2.95-13-6.62 10.1 9.57Zm0 2.3L4.9 22.72l13-6.62-2.9-2.95Zm5.2-2.6-3.3 3.35-3.3-3.35 3.3-3.35 3.3 3.35Z" />
+    </svg>
+  );
+}
+
+function WhatsAppGlyph() {
+  return (
+    <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+      <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51a12.8 12.8 0 0 0-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"/>
     </svg>
   );
 }

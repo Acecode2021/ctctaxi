@@ -186,7 +186,7 @@ function ServiceCard({ s, index }: { s: (typeof SERVICES)[number]; index: number
           </AnimatePresence>
 
           <a
-            href="#book"
+            href="/#book"
             className="flex items-center gap-2.5 text-white font-semibold text-[0.86rem] mt-6 group/link w-fit"
             style={{ marginTop: 24 }}
             onClick={() => track('service_card_open', { service: s.id })}
@@ -221,7 +221,7 @@ export function Services() {
           lede="Five services, one standard of car and driver. Whether it is a quick run across town, a flight to catch or a parcel that must arrive, the same CTC discipline applies."
           action={
             <a
-              href="#book"
+              href="/#book"
               className="btn btn--outline"
               onClick={() => track('cta_click', { cta: 'services_quote' })}
             >

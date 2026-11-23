@@ -1,4 +1,4 @@
-import { AnimatePresence, motion } from 'framer-motion';
+import { AnimatePresence, motion, rgba } from 'framer-motion';
 import { useState, type FormEvent } from 'react';
 import { Icon, PlayGlyph, Reveal, SectionHead } from './primitives';
 import { IMG, srcset } from '../assets/images';
@@ -370,6 +370,34 @@ function DSelect({
 }
 
 /* ==========================================================================
+   CTC TAXI — brand introduction (placed before Leadership)
+
+   Sourced from ctctaxi.com and public press:
+     • Countryside Taxi Company Limited (CTC Taxi), Nigerian e-hailing brand,
+       over three years of operation — ctctaxi.com [citation:1]
+     • Mission: accessible, affordable ride-hailing anywhere, anytime;
+       reliable social business partner — ctctaxi.com [citation:1]
+     • Vision: Africa's top five e-hailing companies by 2030 — ctctaxi.com [citation:1]
+     • Lagos operations, instant and pre-booked trips — AppBrain listing [citation:9]
+     • 4G GPS dashcams across all vehicles for passenger safety — ctctaxi.com news [citation:2]
+   ========================================================================== */
+
+const CTC_BRAND_FACTS: { label: string; body: string }[] = [
+  {
+    label: 'A Nigerian e-hailing brand',
+    body: 'Countryside Taxi Company Limited (CTC Taxi) is a proudly Nigerian e-hailing brand with over three years of delivering safe, reliable, and convenient mobility solutions in Lagos [citation:1].',
+  },
+  {
+    label: 'Safety-first fleet',
+    body: 'CTC Taxi equips its vehicles with advanced 4G GPS dashcams across the fleet, raising the standard of passenger safety and peace of mind on every trip [citation:2].',
+  },
+  {
+    label: 'A bigger vision',
+    body: 'The company aims to become one of Africa\u2019s top five leading e-hailing companies by 2030, expanding across the continent while empowering drivers and supporting communities [citation:1].',
+  },
+];
+
+/* ==========================================================================
    LEADERSHIP — the About section
 
    Scope, by request: no personal background, no upbringing, no career
@@ -460,6 +488,60 @@ export function CeoAbout() {
       />
 
       <div className="shell relative">
+       
+        <Reveal>
+          <div style={{ marginBottom: 72 }}>
+            <span className="eyebrow text-white/60">The brand</span>
+            <h2
+              className="text-white font-semibold mt-4"
+              style={{
+                fontSize: 'clamp(1.6rem, 3vw, 2.4rem)',
+                letterSpacing: '-0.03em',
+                lineHeight: 1.1,
+                marginTop: 16,
+              }}
+            >
+             <p style={{color: 'rgba(233, 12, 144, 0.66)' }}>About</p> CTC Taxi
+            </h2>
+            <p
+              className="mt-4 text-[1rem] leading-relaxed"
+              style={{ color: 'rgba(255,255,255,.66)', maxWidth: '62ch', marginTop: 16 }}
+            >
+              CTC Taxi is the ride-hailing arm of Countryside Group  a Nigerian company
+              building a safer, more reliable way to move around Lagos.
+            </p>
+
+            <div className="mt-8 grid gap-4 md:grid-cols-3" style={{ marginTop: 32 }}>
+              {CTC_BRAND_FACTS.map((f, i) => (
+                <Reveal key={f.label} delay={0.05 + i * 0.06}>
+                  <div
+                    style={{
+                      border: '1px solid rgba(255,255,255,.1)',
+                      background: 'rgba(255,255,255,.03)',
+                      borderRadius: 18,
+                      padding: 22,
+                      height: '100%',
+                    }}
+                  >
+                    <h4
+                      className="text-white font-semibold"
+                      style={{ fontSize: '0.98rem', letterSpacing: '-0.02em' }}
+                    >
+                      {f.label}
+                    </h4>
+                    <p
+                      className="mt-2 text-[0.86rem] leading-relaxed"
+                      style={{ color: 'rgba(255,255,255,.56)', marginTop: 10 }}
+                    >
+                      {f.body}
+                    </p>
+                  </div>
+                </Reveal>
+              ))}
+            </div>
+          </div>
+        </Reveal>
+
         <SectionHead
           dark
           eyebrow="Leadership"

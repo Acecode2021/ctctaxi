@@ -79,8 +79,8 @@ The site now states plainly that CTC publishes **two** apps and what each is for
   turn-by-turn navigation, lower commission, airport and corporate jobs, daily payouts.
 
 Both apps' icons, screenshots and store links are the **real published assets**, pulled
-from Google Play and the App Store. The driver app is flagged as **Android only** because
-that is the truth — there is no iOS build, so no dead App Store link.
+from Google Play and the App Store. Both the rider and driver apps are available on
+Android and iOS.
 
 The section also makes clear you do **not** need an app: booking by phone or via the
 form on this page works just as well.

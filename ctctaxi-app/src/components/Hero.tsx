@@ -321,7 +321,7 @@ export function Hero() {
             >
               <Magnetic>
                 <a
-                  href="#book"
+                  href="/#book"
                   className="btn btn--brand"
                   onClick={() => track('cta_click', { cta: 'hero_book' })}
                 >
@@ -330,7 +330,7 @@ export function Hero() {
                 </a>
               </Magnetic>
               <a
-                href="#services"
+                href="/services#services"
                 className="btn btn--ghost"
                 onClick={() => track('cta_click', { cta: 'hero_services' })}
               >

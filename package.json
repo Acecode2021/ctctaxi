@@ -3,14 +3,15 @@
   "version": "1.0.0",
   "main": "server.js",
   "scripts": {
-    "start": "node server.js",
-    "dev": "nodemon server.js"
+    "start": "npm --prefix ./ctctaxi-api start",
+    "dev": "npm --prefix ./ctctaxi-api run dev"
   },
   "dependencies": {
     "cors": "^2.8.5",
     "dotenv": "^17.4.2",
     "express": "^4.19.2",
-    "mongoose": "^9.10.0"
+    "mongoose": "^9.10.0",
+    "react-router-dom": "^7.18.5"
   },
   "devDependencies": {
     "nodemon": "^3.1.0"

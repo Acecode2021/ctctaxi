@@ -18,3 +18,5 @@ build/
 *.log
 npm-debug.log*
 .env
+*.zip
+workspace-*/

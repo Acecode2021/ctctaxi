@@ -1,65 +1,53 @@
 import { useEffect } from 'react';
-import { Nav } from './components/Nav';
-import { Hero } from './components/Hero';
-import { TrustStrip, Services } from './components/Sections';
-import { AppDownloadStrip, TwoApps } from './components/Apps';
-import { DriveWithCTC, CeoAbout } from './components/AppDrive';
-import { Blog } from './components/Blog';
+import { Routes, Route, useLocation } from 'react-router-dom';
+import { Nav } from './components/Nav'; // Assuming Nav is in components
+import { Footer, MobileBar, ScrollProgress } from './components/Close';
 import { BackToTop } from './components/BackToTop';
-import {
-  Airport,
-  Corporate,
-  Safety,
-  HowItWorks,
-} from './components/BelowFold';
-import {
-  Testimonials,
-  FAQ,
-  Contact,
-  FinalCTA,
-  Footer,
-  MobileBar,
-  ScrollProgress,
-} from './components/Close';
-import { STRUCTURED_DATA } from './lib/data';
+
+// Import your new pages
+import Home from './pages/home';
+import Services from './pages/services';
+import Drive from './pages/drive';
+import About from './pages/About';
+import Contact from './pages/Contact';
+import Newsroom from './pages/Newsroom';
+
+function RouteScroll() {
+  const { pathname, hash } = useLocation();
+
+  useEffect(() => {
+    const frame = window.requestAnimationFrame(() => {
+      const target = hash ? document.getElementById(decodeURIComponent(hash.slice(1))) : null;
+      if (target) target.scrollIntoView();
+      else window.scrollTo({ top: 0 });
+    });
+
+    return () => window.cancelAnimationFrame(frame);
+  }, [pathname, hash]);
+
+  return null;
+}
 
 export default function App() {
-  useEffect(() => {
-    const el = document.createElement('script');
-    el.type = 'application/ld+json';
-    el.textContent = JSON.stringify(STRUCTURED_DATA);
-    document.head.appendChild(el);
-    return () => {
-      document.head.removeChild(el);
-    };
-  }, []);
-
   return (
     <>
       <ScrollProgress />
+      <RouteScroll />
       <Nav />
-
-      <main id="main">
-        <Hero />
-        <TrustStrip />
-        <AppDownloadStrip />
-        <Services />
-        <TwoApps />
-        <Airport />
-        <Corporate />
-        <Safety />
-        <HowItWorks />
-        <DriveWithCTC />
-        <CeoAbout />
-        <Testimonials />
-        <FAQ />
-        <Contact />
-        <Blog />
-        <FinalCTA />
-      </main>
+      <MobileBar />
+      
+      {/* The Router */}
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/services" element={<Services />} />
+        <Route path="/drive" element={<Drive />} />
+        <Route path="/about" element={<About />} />
+        <Route path="/contact" element={<Contact />} />
+        <Route path="/newsroom" element={<Newsroom />} />
+        <Route path="*" element={<main className="shell min-h-screen pt-32"><h1 className="h2">Page not found</h1><a className="btn btn--brand mt-6" href="/">Return home</a></main>} />
+      </Routes>
 
       <Footer />
-      <MobileBar />
       <BackToTop />
     </>
   );

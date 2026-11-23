@@ -6,6 +6,19 @@ import { FAQS, REVIEWS } from '../lib/data';
 import { APPS, CONTACT, MAP, SOCIAL, track } from '../lib/analytics';
 import { CAPTURE, isEmail, isPhone, submitForm } from '../lib/forms';
 
+const NIGERIA_CONTACT = {
+  address: CONTACT.addressLines.join(' '),
+  phonePrimary: CONTACT.phonePrimary,
+  phonePrimaryTel: CONTACT.phonePrimaryTel,
+  whatsapp: CONTACT.whatsapp,
+};
+
+const SIERRA_LEONE_CONTACT = {
+  ...CONTACT.sierraLeone,
+  address: CONTACT.sierraLeone.addressLines.join(' '),
+  whatsappPrimary: CONTACT.sierraLeone.phonePrimary.slice(1),
+};
+
 /* ==========================================================================
    SCROLL PROGRESS — a thin brand bar at the very top of the viewport
    ========================================================================== */
@@ -185,6 +198,7 @@ export function Testimonials() {
               { v: '4.6★', l: 'Google Play · CTC Taxi rider app' },
               { v: '5.0★', l: 'App Store · CTC Taxi rider app' },
               { v: '5.0★', l: 'Google Play · CTC Driver app' },
+              { v: '5.0★', l: 'App Store · CTC Driver app' },
             ].map((b) => (
               <div
                 key={b.l}
@@ -230,21 +244,37 @@ export function FAQ() {
             <Reveal delay={0.1}>
               <div className="mt-8 flex flex-wrap gap-3" style={{ marginTop: 32 }}>
                 <a
-                  href={`tel:${CONTACT.phonePrimaryTel}`}
+                  href={`tel:${NIGERIA_CONTACT.phonePrimaryTel}`}
                   className="btn btn--dark btn--sm"
-                  onClick={() => track('phone_click', { source: 'faq' })}
+                  onClick={() => track('phone_click', { source: 'faq', branch: 'nigeria' })}
                 >
-                  <Icon name="phone" size={15} /> {CONTACT.phonePrimary}
+                  <Icon name="phone" size={15} /> NG: {NIGERIA_CONTACT.phonePrimary}
                 </a>
                 <a
-                  href={`https://wa.me/${CONTACT.whatsapp}`}
+                  href={`tel:${CONTACT.sierraLeone.phonePrimary.replace(/\s/g, '')}`}
+                  className="btn btn--dark btn--sm"
+                  onClick={() => track('phone_click', { source: 'faq', branch: 'sierraleone' })}
+                >
+                  <Icon name="phone" size={15} /> SL: {CONTACT.sierraLeone.phonePrimary}
+                </a>
+                <a
+                    href={`https://wa.me/${NIGERIA_CONTACT.whatsapp}`}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="btn btn--outline btn--sm"
-                  onClick={() => track('whatsapp_click', { source: 'faq' })}
+                  onClick={() => track('whatsapp_click', { source: 'faq', branch: 'nigeria' })}
                 >
-                  WhatsApp
+                  <Icon name="chat" size={15} /> WhatsApp NG
                 </a>
+                <a
+                  href={`https://wa.me/${CONTACT.sierraLeone.whatsapp}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="btn btn--outline btn--sm"
+                  onClick={() => track('whatsapp_click', { source: 'faq', branch: 'sierraleone' })}
+                >
+                  <Icon name="chat" size={15} /> WhatsApp SL
+                </a>    
               </div>
             </Reveal>
           </div>
@@ -336,7 +366,7 @@ export function Contact() {
     const errs: Record<string, string> = {};
     if (!v.name.trim()) errs.name = 'Please enter your name.';
     if (!v.phone.trim()) errs.phone = 'We need a number to call you back.';
-    else if (!isPhone(v.phone)) errs.phone = 'Enter a valid Nigerian number.';
+    else if (!isPhone(v.phone)) errs.phone = 'Enter a valid phone number.';
     if (v.email.trim() && !isEmail(v.email)) errs.email = 'That email looks incorrect.';
     if (!v.message.trim()) errs.message = 'Tell us briefly what you need.';
 
@@ -358,7 +388,7 @@ export function Contact() {
         <SectionHead
           eyebrow="Find us"
           title="Talk To Our Team."
-          lede="Corporate accounts, standing staff transport, or a one-off question. You are also welcome at the office during working hours."
+          lede="Corporate accounts, standing staff transport, or a one-off question. You are also welcome at our offices during working hours."
         />
 
         {/* ------------------------------- live map ------------------------------- */}
@@ -455,34 +485,80 @@ export function Contact() {
         </Reveal>
 
         {/* ---------------------------- details + form ---------------------------- */}
-        <div className="mt-14 grid gap-14 lg:grid-cols-[.9fr_1.1fr] lg:items-start" style={{ marginTop: 56 }}>
+        <div className="mt-14 grid gap-14 lg:grid-cols-[1fr_1.1fr] lg:items-start" style={{ marginTop: 56 }}>
           <div>
             <Reveal>
-              <h3 className="h3">Office &amp; contact details</h3>
+              <h3 className="h3">Offices &amp; contact details</h3>
             </Reveal>
-            <Reveal delay={0.08}>
-              <address className="mt-7 not-italic grid gap-5" style={{ marginTop: 28 }}>
-                <ContactRow
-                  icon="pin"
-                  label="Office"
-                  value={CONTACT.addressLines.join(' ')}
-                  href={MAP.directions}
-                />
-                <ContactRow
-                  icon="phone"
-                  label="Phone"
-                  value={CONTACT.phonePrimary}
-                  href={`tel:${CONTACT.phonePrimaryTel}`}
-                  secondary={{ value: CONTACT.phoneSecondary, href: `tel:${CONTACT.phoneSecondaryTel}` }}
-                  onClick={() => track('phone_click', { source: 'contact_details' })}
-                />
-                <ContactRow
-                  icon="chat"
-                  label="WhatsApp"
-                  value="Message us anytime"
-                  href={`https://wa.me/${CONTACT.whatsapp}`}
-                  onClick={() => track('whatsapp_click', { source: 'contact_details' })}
-                />
+            
+            <div className="mt-7 grid gap-6 sm:grid-cols-2 lg:grid-cols-1" style={{ marginTop: 28 }}>
+              {/* Nigeria Office */}
+              <Reveal delay={0.05}>
+                <div className="p-5 rounded-xl border h-full" style={{ borderColor: 'var(--color-line)' }}>
+                  <h4 className="font-semibold text-[1.05rem] mb-1">Nigeria Branch</h4>
+                  <address className="not-italic grid gap-3 mt-4">
+                    <ContactRow
+                      icon="pin"
+                      label="Address"
+                      value={NIGERIA_CONTACT.address}
+                      href={MAP.directions}
+                    />
+                    <ContactRow
+                      icon="phone"
+                      label="Phone"
+                      value={NIGERIA_CONTACT.phonePrimary}
+                      href={`tel:${NIGERIA_CONTACT.phonePrimaryTel}`}
+                      onClick={() => track('phone_click', { source: 'contact_details', branch: 'nigeria' })}
+                    />
+                    <ContactRow
+                      icon="chat"
+                      label="WhatsApp"
+                      value="Message us"
+                      href={`https://wa.me/${NIGERIA_CONTACT.whatsapp}`}
+                      onClick={() => track('whatsapp_click', { source: 'contact_details', branch: 'nigeria' })}
+                    />
+                  </address>
+                </div>
+              </Reveal>
+
+              {/* Sierra Leone Office */}
+              <Reveal delay={0.1}>
+                <div className="p-5 rounded-xl border h-full" style={{ borderColor: 'var(--color-line)' }}>
+                  <h4 className="font-semibold text-[1.05rem] mb-1">Sierra Leone Branch</h4>
+                  <address className="not-italic grid gap-3 mt-4">
+                    <ContactRow
+                      icon="pin"
+                      label="Address"
+                      value={SIERRA_LEONE_CONTACT.address}
+                    />
+                    <ContactRow
+                      icon="phone"
+                      label="Phone 1"
+                      value={CONTACT.sierraLeone.phonePrimary}
+                      href={`tel:${CONTACT.sierraLeone.phonePrimary.replace(/\s/g, '')}`}
+                      onClick={() => track('phone_click', { source: 'contact_details', branch: 'sierraleone' })}
+                    />
+                    <ContactRow
+                      icon="phone"
+                      label="Phone 2"
+                      value={CONTACT.sierraLeone.phoneSecondary}
+                      href={`tel:${CONTACT.sierraLeone.phoneSecondary.replace(/\s/g, '')}`}
+                      onClick={() => track('phone_click', { source: 'contact_details', branch: 'sierraleone' })}
+                    />
+                    <ContactRow
+                      icon="chat"
+                      label="WhatsApp"
+                      value="Primary Number"
+                      href={`https://wa.me/${SIERRA_LEONE_CONTACT.whatsappPrimary}`}
+                      onClick={() => track('whatsapp_click', { source: 'contact_details', branch: 'sierraleone' })}
+                    />
+                  </address>
+                </div>
+              </Reveal>
+            </div>
+
+            <Reveal delay={0.15}>
+              <address className="not-italic grid gap-4 mt-6" style={{ marginTop: 24 }}>
                 <ContactRow
                   icon="mail"
                   label="Email"
@@ -493,15 +569,14 @@ export function Contact() {
               </address>
             </Reveal>
 
-            <Reveal delay={0.14}>
+            <Reveal delay={0.18}>
               <div className="mt-8 rounded-md p-6" style={{ background: 'var(--color-sand)', border: '1px solid var(--color-line)', marginTop: 32 }}>
                 <div className="flex items-center gap-2.5">
                   <Icon name="globe" size={16} className="text-brand shrink-0" />
-                  <span className="font-semibold text-[0.9rem]">Coming to the office?</span>
+                  <span className="font-semibold text-[0.9rem]">Coming to an office?</span>
                 </div>
                 <p className="text-[0.86rem] leading-relaxed mt-2.5" style={{ color: 'var(--color-fg-2)', marginTop: 10 }}>
-                  We are in Victory Estate, just off Ago Palace Way. Tap “Get directions”
-                  above and your phone will open the route in the maps app you already use.
+                  Tap “Get directions” above and your phone will open the route in the maps app you already use.
                   If you are driving yourself, call ahead so we can tell you where to park.
                 </p>
               </div>
@@ -510,7 +585,7 @@ export function Contact() {
 
           <Reveal delay={0.12}>
             <div
-              className="rounded-xl p-6 sm:p-8"
+              className="rounded-xl p-6 sm:p-8 lg:sticky lg:top-32"
               style={{ background: 'var(--color-sand)', border: '1px solid var(--color-line)', borderRadius: 24 }}
             >
               {status === 'success' ? (
@@ -580,7 +655,7 @@ export function Contact() {
                   {status === 'error' && (
                     <p className="field__error mt-3" role="alert" style={{ marginTop: 12 }}>
                       <Icon name="x" size={13} strokeWidth={2.6} />
-                      Could not send. Please call {CONTACT.phonePrimary} instead.
+                      Could not send. Please call {NIGERIA_CONTACT.phonePrimary} instead.
                     </p>
                   )}
                 </form>
@@ -609,24 +684,24 @@ function ContactRow({
   onClick?: () => void;
 }) {
   const Body = (
-    <div className="flex gap-4">
+    <div className="flex gap-3">
       <span
-        className="grid place-items-center rounded-[12px] shrink-0"
+        className="grid place-items-center rounded-[10px] shrink-0"
         style={{
-          width: 42,
-          height: 42,
-          background: 'var(--color-sand)',
+          width: 36,
+          height: 36,
+          background: '#fff',
           border: '1px solid var(--color-line)',
           color: 'var(--color-brand)',
         }}
       >
-        <Icon name={icon} size={18} />
+        <Icon name={icon} size={16} />
       </span>
       <div>
-        <div className="text-[0.7rem] font-bold tracking-[0.12em] uppercase" style={{ color: 'var(--color-fg-3)' }}>
+        <div className="text-[0.65rem] font-bold tracking-[0.12em] uppercase mt-0.5" style={{ color: 'var(--color-fg-3)' }}>
           {label}
         </div>
-        <div className="text-[0.92rem] mt-1" style={{ color: 'var(--color-fg)' }}>
+        <div className="text-[0.88rem] mt-0.5" style={{ color: 'var(--color-fg)' }}>
           {value}
           {secondary && (
             <>
@@ -732,7 +807,7 @@ export function FinalCTA() {
           >
             <Magnetic>
               <a
-                href="#book"
+                href="/#book"
                 className="btn btn--brand"
                 onClick={() => track('cta_click', { cta: 'final_book' })}
               >
@@ -740,7 +815,7 @@ export function FinalCTA() {
               </a>
             </Magnetic>
             <a
-              href="#apps"
+              href="/#apps"
               className="btn btn--ghost"
               onClick={() => track('cta_click', { cta: 'final_app' })}
             >
@@ -759,24 +834,24 @@ export function FinalCTA() {
 
 const FOOT_NAV = [
   { h: 'Services', links: [
-    { l: 'Everyday Rides', href: '#services' },
-    { l: 'Scheduled Rides', href: '#services' },
-    { l: 'Airport Transfer', href: '#airport' },
-    { l: 'Corporate Transport', href: '#corporate' },
-    { l: 'Delivery', href: '#services' },
+    { l: 'Everyday Rides', href: '/services#services' },
+    { l: 'Scheduled Rides', href: '/services#services' },
+    { l: 'Airport Transfer', href: '/services#airport' },
+    { l: 'Corporate Transport', href: '/services#corporate' },
+    { l: 'Delivery', href: '/services#services' },
   ]},
   { h: 'Apps', links: [
-    { l: 'Rider app', href: '#apps' },
-    { l: 'Driver app', href: '#apps' },
+    { l: 'Rider app', href: '/#apps' },
+    { l: 'Driver app', href: '/#apps' },
     { l: 'Download for Android', href: APPS.riderPlay },
     { l: 'Download for iPhone', href: APPS.riderAppStore },
   ]},
   { h: 'Company', links: [
-    { l: 'About Us', href: '#about' },
-    { l: 'Safety & Standards', href: '#safety' },
-    { l: 'Drive With CTC', href: '#drive' },
-    { l: 'Contact', href: '#contact' },
-    { l: 'FAQ', href: '#faq' },
+    { l: 'About Us', href: '/about#about' },
+    { l: 'Safety & Standards', href: '/services#safety' },
+    { l: 'Drive With CTC', href: '/drive#drive' },
+    { l: 'Contact', href: '/contact#contact' },
+    { l: 'FAQ', href: '/contact#faq' },
   ]},
 ];
 
@@ -796,7 +871,7 @@ export function Footer() {
               loading="lazy"
             />
             <p className="mt-5 text-[0.87rem] leading-relaxed max-w-[34ch]" style={{ marginTop: 20, color: 'rgba(255,255,255,.48)' }}>
-              Countryside Taxi Company Ltd — a Lagos mobility company running verified
+              Countryside Taxi Company Ltd — a West African mobility company running verified
               drivers, a GPS-monitored fleet and our own rider and driver apps.
             </p>
             <div className="flex gap-2.5 mt-6" style={{ marginTop: 24 }}>
@@ -857,41 +932,42 @@ export function Footer() {
             <h2 className="text-[0.68rem] font-bold tracking-[0.16em] uppercase text-white">
               Contact
             </h2>
-            <address className="not-italic mt-5 text-[0.87rem] leading-relaxed" style={{ marginTop: 20 }}>
-              {CONTACT.addressLines.map((l) => (
-                <span key={l} className="block">{l}</span>
-              ))}
-            </address>
-            <ul className="mt-4 grid gap-2.5" style={{ marginTop: 16 }}>
-              <li>
-                <a
-                  href={`tel:${CONTACT.phonePrimaryTel}`}
-                  className="text-[0.87rem] hover:text-white transition-colors"
-                  onClick={() => track('phone_click', { source: 'footer' })}
-                >
-                  {CONTACT.phonePrimary}
-                </a>
-              </li>
-              <li>
-                <a
-                  href={`tel:${CONTACT.phoneSecondaryTel}`}
-                  className="text-[0.87rem] hover:text-white transition-colors"
-                >
-                  {CONTACT.phoneSecondary}
-                </a>
-              </li>
-              <li>
-                <a
-                  href={`mailto:${CONTACT.email}`}
-                  className="text-[0.87rem] hover:text-white transition-colors"
-                >
-                  {CONTACT.email}
-                </a>
-              </li>
-              <li style={{ color: 'rgba(255,255,255,.4)' }} className="text-[0.87rem]">
-                {CONTACT.hours}
-              </li>
-            </ul>
+            <div className="mt-5 grid gap-5" style={{ marginTop: 20 }}>
+              
+              {/* Nigeria */}
+              <div>
+                <span className="text-[0.7rem] font-bold tracking-wider text-white/50 uppercase block mb-1">Nigeria</span>
+                <address className="not-italic text-[0.85rem] leading-relaxed mb-2">
+                  {NIGERIA_CONTACT.address}
+                </address>
+                <ul className="grid gap-1">
+                  <li><a href={`tel:${NIGERIA_CONTACT.phonePrimaryTel}`} onClick={() => track('phone_click', { source: 'footer', branch: 'nigeria' })} className="text-[0.87rem] hover:text-white transition-colors">{NIGERIA_CONTACT.phonePrimary}</a></li>
+                  <li><a href={`https://wa.me/${NIGERIA_CONTACT.whatsapp}`} target="_blank" rel="noopener noreferrer" onClick={() => track('whatsapp_click', { source: 'footer', branch: 'nigeria' })} className="text-[0.87rem] hover:text-white transition-colors">WhatsApp</a></li>
+                </ul>
+              </div>
+
+              {/* Sierra Leone */}
+              <div>
+                <span className="text-[0.7rem] font-bold tracking-wider text-white/50 uppercase block mb-1">Sierra Leone</span>
+                <address className="not-italic text-[0.85rem] leading-relaxed mb-2">
+                  {SIERRA_LEONE_CONTACT.address}
+                </address>
+                <ul className="grid gap-1">
+                  <li><a href={`tel:${CONTACT.sierraLeone.phonePrimary.replace(/\s/g, '')}`} onClick={() => track('phone_click', { source: 'footer', branch: 'sierraleone' })} className="text-[0.87rem] hover:text-white transition-colors">{CONTACT.sierraLeone.phonePrimary}</a></li>
+                  <li><a href={`tel:${CONTACT.sierraLeone.phoneSecondary.replace(/\s/g, '')}`} onClick={() => track('phone_click', { source: 'footer', branch: 'sierraleone' })} className="text-[0.87rem] hover:text-white transition-colors">{CONTACT.sierraLeone.phoneSecondary}</a></li>
+                  <li><a href={`https://wa.me/${SIERRA_LEONE_CONTACT.whatsappPrimary}`} target="_blank" rel="noopener noreferrer" onClick={() => track('whatsapp_click', { source: 'footer', branch: 'sierraleone' })} className="text-[0.87rem] hover:text-white transition-colors">WhatsApp</a></li>
+                </ul>
+              </div>
+
+              {/* Global */}
+              <div>
+                <ul className="grid gap-2 mt-2">
+                  <li><a href={`mailto:${CONTACT.email}`} className="text-[0.87rem] hover:text-white transition-colors">{CONTACT.email}</a></li>
+                  <li style={{ color: 'rgba(255,255,255,.4)' }} className="text-[0.87rem]">{CONTACT.hours}</li>
+                </ul>
+              </div>
+
+            </div>
 
             <div className="mt-6 grid gap-2.5" style={{ marginTop: 24 }}>
               <a
@@ -964,25 +1040,25 @@ export function MobileBar() {
           }}
         >
           <a
-            href={`tel:${CONTACT.phonePrimaryTel}`}
+            href={`tel:${NIGERIA_CONTACT.phonePrimaryTel}`}
             className="flex items-center justify-center gap-2 rounded-[10px] text-white text-[0.82rem] font-semibold py-3.5"
             style={{ border: '1px solid rgba(255,255,255,.22)' }}
-            onClick={() => track('phone_click', { source: 'mobile_bar' })}
+            onClick={() => track('phone_click', { source: 'mobile_bar', branch: 'nigeria' })}
           >
-            <Icon name="phone" size={15} /> Call
+            <Icon name="phone" size={15} /> Call NG
           </a>
           <a
-            href={`https://wa.me/${CONTACT.whatsapp}?text=${encodeURIComponent('Hello CTC Taxi, I would like to book a ride.')}`}
+            href={`https://wa.me/${NIGERIA_CONTACT.whatsapp}?text=${encodeURIComponent('Hello CTC Taxi, I would like to book a ride.')}`}
             target="_blank"
             rel="noopener noreferrer"
             className="flex items-center justify-center gap-2 rounded-[10px] text-white text-[0.82rem] font-semibold py-3.5"
             style={{ border: '1px solid rgba(255,255,255,.22)' }}
-            onClick={() => track('whatsapp_click', { source: 'mobile_bar' })}
+            onClick={() => track('whatsapp_click', { source: 'mobile_bar', branch: 'nigeria' })}
           >
             WhatsApp
           </a>
           <a
-            href="#book"
+            href="/#book"
             className="flex items-center justify-center rounded-[10px] text-white text-[0.82rem] font-semibold py-3.5"
             style={{ background: 'var(--color-brand)' }}
             onClick={() => track('cta_click', { cta: 'mobile_bar_book' })}
@@ -993,4 +1069,4 @@ export function MobileBar() {
       )}
     </AnimatePresence>
   );
-}
+} 
