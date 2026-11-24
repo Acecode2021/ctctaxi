@@ -1,4 +1,4 @@
-import { AnimatePresence, motion, rgba } from 'framer-motion';
+import { AnimatePresence, motion } from 'framer-motion';
 import { useState, type FormEvent } from 'react';
 import { Icon, PlayGlyph, Reveal, SectionHead } from './primitives';
 import { IMG, srcset } from '../assets/images';
@@ -370,105 +370,31 @@ function DSelect({
 }
 
 /* ==========================================================================
-   CTC TAXI — brand introduction (placed before Leadership)
-
-   Sourced from ctctaxi.com and public press:
-     • Countryside Taxi Company Limited (CTC Taxi), Nigerian e-hailing brand,
-       over three years of operation — ctctaxi.com [citation:1]
-     • Mission: accessible, affordable ride-hailing anywhere, anytime;
-       reliable social business partner — ctctaxi.com [citation:1]
-     • Vision: Africa's top five e-hailing companies by 2030 — ctctaxi.com [citation:1]
-     • Lagos operations, instant and pre-booked trips — AppBrain listing [citation:9]
-     • 4G GPS dashcams across all vehicles for passenger safety — ctctaxi.com news [citation:2]
+   ABOUT CTC TAXI — the About section
    ========================================================================== */
 
-const CTC_BRAND_FACTS: { label: string; body: string }[] = [
+const CTC_VALUES: { label: string; body: string; icon: string }[] = [
   {
-    label: 'A Nigerian e-hailing brand',
-    body: 'Countryside Taxi Company Limited (CTC Taxi) is a proudly Nigerian e-hailing brand with over three years of delivering safe, reliable, and convenient mobility solutions in Lagos [citation:1].',
+    label: 'Innovation',
+    body: 'A technology-driven platform built to make movement easier for everyone.',
+    icon: 'zap',
   },
   {
-    label: 'Safety-first fleet',
-    body: 'CTC Taxi equips its vehicles with advanced 4G GPS dashcams across the fleet, raising the standard of passenger safety and peace of mind on every trip [citation:2].',
+    label: 'Integrity',
+    body: 'Transparent pricing, verified drivers and a service you can trust.',
+    icon: 'shield',
   },
   {
-    label: 'A bigger vision',
-    body: 'The company aims to become one of Africa\u2019s top five leading e-hailing companies by 2030, expanding across the continent while empowering drivers and supporting communities [citation:1].',
-  },
-];
-
-/* ==========================================================================
-   LEADERSHIP — the About section
-
-   Scope, by request: no personal background, no upbringing, no career
-   history. One photograph. The focus is what the chairman has done for
-   CTC Taxi and the group around it.
-
-   Every line below is sourced. Do not embellish:
-
-     • Chairman & Group CEO, Countryside Group .... ctctaxi.com release;
-       Vanguard 23 Feb 2026; Punch 23 Feb 2026; Guardian NG 27 Jun 2026
-     • "High Chief Dr. Ndubisi George Ugo" ........ Guardian NG / Vanguard, Jun 2026
-     • "Dr. Blow Money" ........................... all of the above; IG @blowmoney001
-     • Own rider + driver apps .................... Play com.countryside.taxiuser,
-       com.countryside.taxidriver; App Store id1671325522
-     • B-Red group ambassador, 14 Feb 2026 ........ ctctaxi.com; Vanguard; Punch
-     • Fakepoco ambassador, Jun 2026 — named for
-       BlowPay, CTC Taxi and Countryside Travels .. Guardian NG; Vanguard; The Sun
-     • Laud Award, 13 May 2022, Lead City Univ. ... Vanguard, 10 May 2022
-     • 33rd National President, IMAN, Aug 2026 .... Vanguard 4 Oct 2026; The Sun
-     • WADA Ambassador (NDLEA) .................... Vanguard, 4 Oct 2026
-     • The pull quote ............................. ctctaxi.com; Vanguard; Punch
-
-   Deliberately absent: birth year, education, the body that awarded the
-   doctorate, and any founding date. Not found in any source — omitted
-   rather than guessed. Do not add them without a citation.
-
-   PHOTOGRAPH: cc ceo-chairman-*.webp is a crop of a two-person press photo
-   (he is holding a signed agreement with another party at the edge of
-   frame). It is the only real solo image of him in the public record —
-   there is no posed portrait. Swap in the company's own original before
-   launch; the shoot happened in CTC's own boardroom.
-   ========================================================================== */
-
-type LeadershipItem = { label: string; body: string; icon: string };
-
-const LEADERSHIP_ACHIEVEMENTS: LeadershipItem[] = [
-  {
-    label: 'Two apps, built in-house',
-    body: 'CTC Taxi ships its own rider and driver apps — published under the company\u2019s own developer accounts on Google Play, with the rider app live on the App Store.',
-    icon: 'download',
-  },
-  {
-    label: 'Real names on the brand',
-    body: 'Signed Afrobeats artist B-Red as Countryside Group\u2019s brand ambassador in February 2026, then entertainer Fakepoco in June 2026 — with CTC Taxi named in that deal.',
-    icon: 'star',
-  },
-  {
-    label: 'Recognised for building people',
-    body: 'Honoured at the Laud Awards in May 2022 for outstanding contributions to talent development and youth empowerment.',
+    label: 'Customer focus',
+    body: 'Comfort, safety and flexibility for every rider, every trip.',
     icon: 'user',
   },
-  {
-    label: 'A national voice',
-    body: 'Elected 33rd National President of the Importers Association of Nigeria in August 2026, and serves as a WADA Ambassador in the NDLEA\u2019s War Against Drug Abuse campaign.',
-    icon: 'globe',
-  },
-];
-
-const LEADERSHIP_GROUP: string[] = [
-  'CTC Taxi',
-  'BlowPay',
-  'CTC Autos',
-  'Countryside Travels & Tours',
-  'Blow Money Records',
-  'Countryside Marine',
 ];
 
 export function CeoAbout() {
   return (
     <section
-      id="leadership"
+      id="about"
       className="section relative isolate overflow-hidden"
       style={{ background: 'var(--color-ink-2)' }}
     >
@@ -488,289 +414,155 @@ export function CeoAbout() {
       />
 
       <div className="shell relative">
-       
-        <Reveal>
-          <div style={{ marginBottom: 72 }}>
-            <span className="eyebrow text-white/60">The brand</span>
-            <h2
-              className="text-white font-semibold mt-4"
+        <SectionHead
+          dark
+          eyebrow="About us"
+          title="The CTC Taxi" 
+        />
+
+        {/* ---------------- Mission & Vision — the centerpiece ---------------- */}
+        <div className="grid gap-5 md:grid-cols-2" style={{ marginTop: 56 }}>
+          <Reveal delay={0.05}>
+            <article
+              className="h-full flex flex-col"
               style={{
-                fontSize: 'clamp(1.6rem, 3vw, 2.4rem)',
-                letterSpacing: '-0.03em',
-                lineHeight: 1.1,
-                marginTop: 16,
+                border: '1px solid rgba(255,255,255,.12)',
+                background:
+                  'linear-gradient(155deg, rgba(219,20,123,.16), rgba(255,255,255,.03) 62%)',
+                borderRadius: 24,
+                padding: 34,
               }}
             >
-             <p style={{color: 'rgba(233, 12, 144, 0.66)' }}>About</p> CTC Taxi
-            </h2>
-            <p
-              className="mt-4 text-[1rem] leading-relaxed"
-              style={{ color: 'rgba(255,255,255,.66)', maxWidth: '62ch', marginTop: 16 }}
-            >
-              CTC Taxi is the ride-hailing arm of Countryside Group  a Nigerian company
-              building a safer, more reliable way to move around Lagos.
-            </p>
+              <span
+                className="inline-grid place-items-center"
+                style={{
+                  width: 46,
+                  height: 46,
+                  borderRadius: 14,
+                  background: 'var(--color-brand)',
+                  color: '#fff',
+                }}
+              >
+                <Icon name="flag" size={20} />
+              </span>
+              <span className="eyebrow text-white/60" style={{ marginTop: 22 }}>
+                Our Mission
+              </span>
+              <p
+                className="text-white font-medium"
+                style={{
+                  fontSize: 'clamp(1.1rem, 1.8vw, 1.35rem)',
+                  lineHeight: 1.5,
+                  letterSpacing: '-0.018em',
+                  marginTop: 14,
+                }}
+              >
+                To provide accessible and affordable ride-hailing services anywhere, at
+                any time, with ease; becoming Nigeria’s most reliable social business
+                partner through technology, transparency, and exceptional customer
+                service.
+              </p>
+            </article>
+          </Reveal>
 
-            <div className="mt-8 grid gap-4 md:grid-cols-3" style={{ marginTop: 32 }}>
-              {CTC_BRAND_FACTS.map((f, i) => (
-                <Reveal key={f.label} delay={0.05 + i * 0.06}>
+          <Reveal delay={0.12}>
+            <article
+              className="h-full flex flex-col"
+              style={{
+                border: '1px solid rgba(255,255,255,.12)',
+                background:
+                  'linear-gradient(155deg, rgba(219,20,123,.16), rgba(255,255,255,.03) 62%)',
+                borderRadius: 24,
+                padding: 34,
+              }}
+            >
+              <span
+                className="inline-grid place-items-center"
+                style={{
+                  width: 46,
+                  height: 46,
+                  borderRadius: 14,
+                  background: 'var(--color-brand)',
+                  color: '#fff',
+                }}
+              >
+                <Icon name="globe" size={20} />
+              </span>
+              <span className="eyebrow text-white/60" style={{ marginTop: 22 }}>
+                Our Vision
+              </span>
+              <p
+                className="text-white font-medium"
+                style={{
+                  fontSize: 'clamp(1.1rem, 1.8vw, 1.35rem)',
+                  lineHeight: 1.5,
+                  letterSpacing: '-0.018em',
+                  marginTop: 14,
+                }}
+              >
+                To become one of Africa’s top five leading e-hailing companies by the
+                year 2030, expanding our footprint across the continent while empowering
+                drivers, supporting communities, and delivering world-class mobility
+                experiences.
+              </p>
+            </article>
+          </Reveal>
+        </div>
+
+        {/* ---------------- Values strip ---------------- */}
+        <Reveal delay={0.08}>
+          <div
+            style={{
+              borderTop: '1px solid rgba(255,255,255,.1)',
+              paddingTop: 40,
+              marginTop: 56,
+            }}
+          >
+            <span className="eyebrow text-white/60">What we stand on</span>
+            <div className="grid gap-4 md:grid-cols-3" style={{ marginTop: 24 }}>
+              {CTC_VALUES.map((val, i) => (
+                <Reveal key={val.label} delay={0.05 + i * 0.06}>
                   <div
+                    className="flex gap-4"
                     style={{
-                      border: '1px solid rgba(255,255,255,.1)',
+                      border: '1px solid rgba(255,255,255,.11)',
                       background: 'rgba(255,255,255,.03)',
                       borderRadius: 18,
                       padding: 22,
                       height: '100%',
                     }}
                   >
-                    <h4
-                      className="text-white font-semibold"
-                      style={{ fontSize: '0.98rem', letterSpacing: '-0.02em' }}
+                    <span
+                      className="inline-grid place-items-center shrink-0"
+                      style={{
+                        width: 40,
+                        height: 40,
+                        borderRadius: 12,
+                        background: 'rgba(219,20,123,.18)',
+                        border: '1px solid rgba(219,20,123,.4)',
+                        color: 'var(--color-brand)',
+                      }}
                     >
-                      {f.label}
-                    </h4>
-                    <p
-                      className="mt-2 text-[0.86rem] leading-relaxed"
-                      style={{ color: 'rgba(255,255,255,.56)', marginTop: 10 }}
-                    >
-                      {f.body}
-                    </p>
+                      <Icon name={val.icon} size={18} />
+                    </span>
+                    <div>
+                      <h4
+                        className="text-white font-semibold"
+                        style={{ fontSize: '0.98rem', letterSpacing: '-0.02em' }}
+                      >
+                        {val.label}
+                      </h4>
+                      <p
+                        className="mt-1.5 text-[0.85rem] leading-relaxed"
+                        style={{ color: 'rgba(255,255,255,.6)', marginTop: 6 }}
+                      >
+                        {val.body}
+                      </p>
+                    </div>
                   </div>
                 </Reveal>
               ))}
             </div>
-          </div>
-        </Reveal>
-
-        <SectionHead
-          dark
-          eyebrow="Leadership"
-          title={
-            <>
-              The Chairman
-              <br />
-              Behind CTC Taxi.
-            </>
-          }
-          lede="CTC Taxi belongs to Countryside Group. The chairman who runs that group sets the direction for the fleet, the apps and the standards behind them."
-        />
-
-        <div
-          className="grid gap-12 lg:grid-cols-[minmax(0,.78fr)_minmax(0,1.22fr)] lg:items-center"
-          style={{ marginTop: 56 }}
-        >
-          {/* ---------------- The one photograph ---------------- */}
-          <Reveal>
-            <figure className="m-0 relative">
-              <div
-                className="relative overflow-hidden"
-                style={{
-                  borderRadius: 28,
-                  background: '#0b0b12',
-                  border: '1px solid rgba(219,20,123,.35)',
-                }}
-              >
-                <img
-                  src="/ceo.webp"
-                  alt="High Chief Dr. Ndubisi George Ugo, Chairman and Group Chief Executive Officer of Countryside Group, at the group headquarters in Lagos"
-                  loading="lazy"
-                  decoding="async"
-                  className="w-full block object-cover"
-                  style={{ aspectRatio: '4 / 5', objectPosition: '50% 12%' }}
-                />
-                <div
-                  className="absolute inset-x-0 bottom-0"
-                  style={{
-                    height: '40%',
-                    background: 'linear-gradient(to top, rgba(8,8,12,.88), rgba(8,8,12,0))',
-                  }}
-                />
-                <div className="absolute bottom-0 left-0 right-0 p-6">
-                  <div
-                    className="inline-flex items-center gap-2.5 px-4 py-2"
-                    style={{ borderRadius: 999, background: 'var(--color-brand)' }}
-                  >
-                    <Icon name="briefcase" size={14} className="text-white" />
-                    <span className="text-white text-[0.72rem] font-bold tracking-[0.1em] uppercase">
-                      Chairman &amp; Group CEO
-                    </span>
-                  </div>
-                </div>
-              </div>
-
-              <figcaption
-                className="mt-4 text-[0.8rem] leading-relaxed"
-                style={{ color: 'rgba(255,255,255,.44)' }}
-              >
-                Dr. Ndubisi at the Countryside Group headquarters, Lagos, June 2026.
-              </figcaption>
-            </figure>
-          </Reveal>
-
-          {/* ---------------- Name + intro + quote ---------------- */}
-          <div>
-            <Reveal>
-              <h3
-                className="text-white font-semibold tracking-tight"
-                style={{
-                  fontSize: 'clamp(1.6rem, 3.1vw, 2.7rem)',
-                  lineHeight: 1.06,
-                  letterSpacing: '-0.034em',
-                }}
-              >
-                High Chief Dr. Ndubisi George Ugo
-              </h3>
-
-              <p className="mt-3 text-[0.95rem] font-semibold" style={{ color: 'var(--color-brand)' }}>
-                Chairman &amp; Group Chief Executive Officer, Countryside Group
-              </p>
-
-              <p className="mt-2 text-[0.85rem]" style={{ color: 'rgba(255,255,255,.5)' }}>
-                Also known as <em>Dr. Blow Money</em>
-              </p>
-            </Reveal>
-
-            <Reveal delay={0.08}>
-              <p
-                className="mt-8 text-[1.05rem] leading-relaxed"
-                style={{ color: 'rgba(255,255,255,.74)', maxWidth: '58ch', marginTop: 32 }}
-              >
-                High Chief Dr. Ndubisi George Ugo — Dr. Blow Money to the people who
-                follow the group — is the Chairman and Group Chief Executive Officer of
-                Countryside Group, the parent company of CTC Taxi. He leads a portfolio
-                that runs from e-hailing and fintech to vehicle dealership, travel,
-                entertainment and marine logistics. CTC Taxi is the arm of it that
-                moves Lagos.
-              </p>
-            </Reveal>
-
-            <Reveal delay={0.14}>
-              <blockquote
-                style={{
-                  borderLeft: '3px solid var(--color-brand)',
-                  paddingLeft: 24,
-                  marginTop: 36,
-                }}
-              >
-                <p
-                  className="text-white font-medium"
-                  style={{
-                    fontSize: 'clamp(1.12rem, 1.9vw, 1.5rem)',
-                    lineHeight: 1.38,
-                    letterSpacing: '-0.02em',
-                  }}
-                >
-                  &ldquo;Countryside Group is building a global African brand rooted in
-                  innovation, credibility, and excellence.&rdquo;
-                </p>
-                <cite
-                  className="mt-4 block not-italic text-[0.78rem] font-semibold tracking-[0.08em] uppercase"
-                  style={{ color: 'rgba(255,255,255,.5)', marginTop: 16 }}
-                >
-                  Chief Dr. George Ndubisi — Chairman &amp; Group CEO
-                </cite>
-              </blockquote>
-            </Reveal>
-          </div>
-        </div>
-
-        {/* ---------------- What he has done for CTC Taxi ---------------- */}
-        <div style={{ marginTop: 80 }}>
-          <Reveal>
-            <span className="eyebrow text-white/60">On his watch</span>
-            <h3
-              className="text-white font-semibold mt-4"
-              style={{
-                fontSize: 'clamp(1.4rem, 2.6vw, 2.1rem)',
-                letterSpacing: '-0.03em',
-                lineHeight: 1.1,
-                marginTop: 16,
-              }}
-            >
-              What he has built here.
-            </h3>
-          </Reveal>
-
-          <div className="mt-8 grid gap-5 md:grid-cols-2" style={{ marginTop: 32 }}>
-            {LEADERSHIP_ACHIEVEMENTS.map((a, i) => (
-              <Reveal key={a.label} delay={0.05 + i * 0.06}>
-                <article
-                  className="h-full flex gap-5"
-                  style={{
-                    border: '1px solid rgba(255,255,255,.11)',
-                    background:
-                      'linear-gradient(150deg, rgba(219,20,123,.10), rgba(255,255,255,.03) 55%)',
-                    borderRadius: 22,
-                    padding: 26,
-                  }}
-                >
-                  <span
-                    className="inline-grid place-items-center shrink-0"
-                    style={{
-                      width: 44,
-                      height: 44,
-                      borderRadius: 14,
-                      background: 'var(--color-brand)',
-                      color: '#fff',
-                    }}
-                  >
-                    <Icon name={a.icon} size={20} />
-                  </span>
-                  <div>
-                    <h4
-                      className="text-white font-semibold"
-                      style={{ fontSize: '1.06rem', letterSpacing: '-0.022em' }}
-                    >
-                      {a.label}
-                    </h4>
-                    <p
-                      className="mt-2.5 text-[0.88rem] leading-relaxed"
-                      style={{ color: 'rgba(255,255,255,.62)', marginTop: 10 }}
-                    >
-                      {a.body}
-                    </p>
-                  </div>
-                </article>
-              </Reveal>
-            ))}
-          </div>
-        </div>
-
-        {/* ---------------- The group he leads ---------------- */}
-        <Reveal delay={0.08}>
-          <div
-            style={{
-              borderTop: '1px solid rgba(255,255,255,.1)',
-              paddingTop: 28,
-              marginTop: 56,
-            }}
-          >
-            <p className="text-[0.8rem] font-semibold" style={{ color: 'rgba(255,255,255,.5)' }}>
-              The group he leads
-            </p>
-            <ul
-              className="flex flex-wrap gap-2.5"
-              style={{ listStyle: 'none', padding: 0, marginTop: 14 }}
-            >
-              {LEADERSHIP_GROUP.map((g) => (
-                <li
-                  key={g}
-                  className="text-[0.84rem] font-medium"
-                  style={{
-                    color: g === 'CTC Taxi' ? '#fff' : 'rgba(255,255,255,.66)',
-                    background: g === 'CTC Taxi' ? 'var(--color-brand)' : 'rgba(255,255,255,.06)',
-                    border:
-                      g === 'CTC Taxi'
-                        ? '1px solid transparent'
-                        : '1px solid rgba(255,255,255,.12)',
-                    borderRadius: 999,
-                    padding: '9px 16px',
-                  }}
-                >
-                  {g}
-                </li>
-              ))}
-            </ul>
           </div>
         </Reveal>
       </div>

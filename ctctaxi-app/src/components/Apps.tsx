@@ -309,6 +309,9 @@ export function TwoApps() {
                   <a href={`tel:${CONTACT.phonePrimaryTel}`} className="btn btn--dark btn--sm w-full justify-start" onClick={() => track('phone_click', { source: 'apps_section', branch: 'nigeria' })}>
                     <Icon name="phone" size={15} /> {CONTACT.phonePrimary}
                   </a>
+                  <a href={`tel:${CONTACT.phoneSecondaryTel}`} className="btn btn--dark btn--sm w-full justify-start" onClick={() => track('phone_click', { source: 'apps_section', branch: 'nigeria' })}>
+                    <Icon name="phone" size={15} /> {CONTACT.phoneSecondary}
+                  </a>
                   {CONTACT.whatsapp && (
                     <a href={`https://wa.me/${CONTACT.whatsapp}?text=Hello%20CTC%20Taxi%20Nigeria`} target="_blank" rel="noopener noreferrer" className="btn btn--outline btn--sm w-full justify-start" onClick={() => track('whatsapp_click', { source: 'apps_section', branch: 'nigeria' })} style={{ borderColor: '#25D366', color: '#128C7E' }}>
                       <Icon name="chat" size={15} /> WhatsApp NG

@@ -7,12 +7,13 @@ import { IMG } from '../assets/images';
 
 const LINKS = [
   { label: 'Home', href: '/', section: 'top' },
+  { label: 'About Us', href: '/about#about', section: 'about' },
   { label: 'Services', href: '/services#services', section: 'services' },
   { label: 'Download App', href: '/#apps', section: 'apps' },
-  { label: 'Contact', href: '/contact#contact', section: 'contact' },
   { label: 'Newsroom', href: '/newsroom#blog', section: 'blog' },
   { label: 'Safety', href: '/services#safety', section: 'safety' },
-  { label: 'About Us', href: '/about#about', section: 'about' },
+   { label: 'Contact', href: '/contact#contact', section: 'contact' },
+  
 ];
 
 export function Nav() {
@@ -151,8 +152,8 @@ export function Nav() {
               style={{ color: solid ? 'var(--color-fg-2)' : 'rgba(255,255,255,.8)' }}
               onClick={() => track('cta_click', { cta: 'nav_contact' })}
             >
-              <Icon name="mail" size={30} />
-              <b>Contact</b>
+              <Icon name="bus" size={30} />
+              <b></b>
             </a>
 
             {/* Become a Driver */}

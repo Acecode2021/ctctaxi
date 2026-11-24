@@ -86,7 +86,7 @@ const AIRPORTS: readonly {
   group: string;
   code: string;
 }[] = [
-  // Major International Airports
+  // Major International Airports In Nigeria 
   { value: 'los', label: "Murtala Muhammed Int'l (LOS)", group: 'Major International', code: 'LOS' },
   { value: 'abv', label: "Nnamdi Azikiwe Int'l (ABV)", group: 'Major International', code: 'ABV' },
   { value: 'kan', label: "Mallam Aminu Kano Int'l (KAN)", group: 'Major International', code: 'KAN' },
@@ -103,7 +103,10 @@ const AIRPORTS: readonly {
   { value: 'anambra', label: "Chinua Achebe Int'l (Anambra)", group: 'Major International', code: '' },
   { value: 'gwi', label: "Gateway Int'l (GWI)", group: 'Major International', code: 'GWI' },
   { value: 'ebonyi', label: "Ebonyi State Int'l", group: 'Major International', code: '' },
-  
+
+    // Sierra Leone
+  { value: 'fna', label: 'Freetown International Airport (FNA Sierra Leone)', group: 'Major International', code: 'FNA' },
+
   // Key Domestic and Regional Airports
   { value: 'bni', label: 'Benin Airport (BNI)', group: 'Domestic & Regional', code: 'BNI' },
   { value: 'iba', label: 'Ibadan Airport (IBA)', group: 'Domestic & Regional', code: 'IBA' },
@@ -117,7 +120,8 @@ const AIRPORTS: readonly {
   { value: 'mdi', label: 'Makurdi Airport (MDI)', group: 'Domestic & Regional', code: 'MDI' },
   { value: 'bcu', label: 'Sir Abubakar Tafawa Balewa Airport (BCU)', group: 'Domestic & Regional', code: 'BCU' },
   { value: 'lafia', label: 'Lafia Cargo Airport', group: 'Domestic & Regional', code: '' },
-
+  
+  
   // Fallback
   { value: 'other-airport', label: 'Other airport / airstrip', group: 'Domestic & Regional', code: '' },
 ] as const;

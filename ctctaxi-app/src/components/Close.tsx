@@ -258,7 +258,7 @@ export function FAQ() {
                   <Icon name="phone" size={15} /> SL: {CONTACT.sierraLeone.phonePrimary}
                 </a>
                 <a
-                    href={`https://wa.me/${NIGERIA_CONTACT.whatsapp}`}
+                  href={`https://wa.me/${NIGERIA_CONTACT.whatsapp}`}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="btn btn--outline btn--sm"
@@ -274,7 +274,7 @@ export function FAQ() {
                   onClick={() => track('whatsapp_click', { source: 'faq', branch: 'sierraleone' })}
                 >
                   <Icon name="chat" size={15} /> WhatsApp SL
-                </a>    
+                </a>
               </div>
             </Reveal>
           </div>
@@ -490,7 +490,7 @@ export function Contact() {
             <Reveal>
               <h3 className="h3">Offices &amp; contact details</h3>
             </Reveal>
-            
+
             <div className="mt-7 grid gap-6 sm:grid-cols-2 lg:grid-cols-1" style={{ marginTop: 28 }}>
               {/* Nigeria Office */}
               <Reveal delay={0.05}>
@@ -858,9 +858,14 @@ const FOOT_NAV = [
 export function Footer() {
   return (
     <footer style={{ background: 'var(--color-ink)', color: 'rgba(255,255,255,.62)' }}>
-      <div className="shell" style={{ paddingTop: 80, paddingBottom: 40 }}>
-        <div className="grid gap-12 lg:grid-cols-[1.6fr_1fr_1fr_1.3fr]">
-          {/* brand */}
+      <div className="shell" style={{ paddingTop: 80, paddingBottom: 32 }}>
+
+        {/* ── 1. BRAND + LINK COLUMNS (one grid row) ────────────────── */}
+        <div
+          className="grid gap-10 lg:grid-cols-[1.4fr_1fr_1fr_1fr_1fr]"
+          style={{ paddingBottom: 48 }}
+        >
+          {/* Brand */}
           <div>
             <img
               src={IMG.logo_white}
@@ -870,11 +875,14 @@ export function Footer() {
               style={{ width: 52, height: 52 }}
               loading="lazy"
             />
-            <p className="mt-5 text-[0.87rem] leading-relaxed max-w-[34ch]" style={{ marginTop: 20, color: 'rgba(255,255,255,.48)' }}>
-              Countryside Taxi Company Ltd — a West African mobility company running verified
-              drivers, a GPS-monitored fleet and our own rider and driver apps.
+            <p
+              className="text-[0.88rem] leading-relaxed"
+              style={{ marginTop: 20, color: 'rgba(255,255,255,.48)', maxWidth: 320 }}
+            >
+              Countryside Taxi Company Ltd — a West African mobility company running
+              verified drivers, a GPS-monitored fleet and our own rider and driver apps.
             </p>
-            <div className="flex gap-2.5 mt-6" style={{ marginTop: 24 }}>
+            <div className="flex gap-2.5" style={{ marginTop: 20 }}>
               {[
                 ['Facebook', SOCIAL.facebook, 'M14 9h3V5.5h-3c-2.2 0-4 1.8-4 4V12H7.5v3.5H10V22h3.5v-6.5H16l.5-3.5h-3V9.7c0-.4.3-.7.5-.7Z'],
                 ['Instagram', SOCIAL.instagram, ''],
@@ -887,11 +895,7 @@ export function Footer() {
                   target="_blank"
                   rel="noopener noreferrer"
                   className="grid place-items-center rounded-full transition-colors hover:bg-white hover:text-ink"
-                  style={{
-                    width: 38,
-                    height: 38,
-                    border: '1px solid rgba(255,255,255,.16)',
-                  }}
+                  style={{ width: 38, height: 38, border: '1px solid rgba(255,255,255,.16)' }}
                 >
                   {label === 'Instagram' ? (
                     <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.9" aria-hidden="true">
@@ -909,16 +913,16 @@ export function Footer() {
             </div>
           </div>
 
-          {/* link columns */}
+          {/* Link columns */}
           {FOOT_NAV.map((col) => (
             <nav key={col.h} aria-label={col.h}>
               <h2 className="text-[0.68rem] font-bold tracking-[0.16em] uppercase text-white">
                 {col.h}
               </h2>
-              <ul className="mt-5 grid gap-3" style={{ marginTop: 20 }}>
+              <ul className="grid gap-3" style={{ marginTop: 20 }}>
                 {col.links.map((l) => (
                   <li key={l.l}>
-                    <a href={l.href} className="text-[0.87rem] hover:text-white transition-colors">
+                    <a href={l.href} className="text-[0.86rem] hover:text-white transition-colors">
                       {l.l}
                     </a>
                   </li>
@@ -927,49 +931,12 @@ export function Footer() {
             </nav>
           ))}
 
-          {/* contact + apps */}
+          {/* App buttons (as 5th column) */}
           <div>
             <h2 className="text-[0.68rem] font-bold tracking-[0.16em] uppercase text-white">
-              Contact
+              Get the App
             </h2>
-            <div className="mt-5 grid gap-5" style={{ marginTop: 20 }}>
-              
-              {/* Nigeria */}
-              <div>
-                <span className="text-[0.7rem] font-bold tracking-wider text-white/50 uppercase block mb-1">Nigeria</span>
-                <address className="not-italic text-[0.85rem] leading-relaxed mb-2">
-                  {NIGERIA_CONTACT.address}
-                </address>
-                <ul className="grid gap-1">
-                  <li><a href={`tel:${NIGERIA_CONTACT.phonePrimaryTel}`} onClick={() => track('phone_click', { source: 'footer', branch: 'nigeria' })} className="text-[0.87rem] hover:text-white transition-colors">{NIGERIA_CONTACT.phonePrimary}</a></li>
-                  <li><a href={`https://wa.me/${NIGERIA_CONTACT.whatsapp}`} target="_blank" rel="noopener noreferrer" onClick={() => track('whatsapp_click', { source: 'footer', branch: 'nigeria' })} className="text-[0.87rem] hover:text-white transition-colors">WhatsApp</a></li>
-                </ul>
-              </div>
-
-              {/* Sierra Leone */}
-              <div>
-                <span className="text-[0.7rem] font-bold tracking-wider text-white/50 uppercase block mb-1">Sierra Leone</span>
-                <address className="not-italic text-[0.85rem] leading-relaxed mb-2">
-                  {SIERRA_LEONE_CONTACT.address}
-                </address>
-                <ul className="grid gap-1">
-                  <li><a href={`tel:${CONTACT.sierraLeone.phonePrimary.replace(/\s/g, '')}`} onClick={() => track('phone_click', { source: 'footer', branch: 'sierraleone' })} className="text-[0.87rem] hover:text-white transition-colors">{CONTACT.sierraLeone.phonePrimary}</a></li>
-                  <li><a href={`tel:${CONTACT.sierraLeone.phoneSecondary.replace(/\s/g, '')}`} onClick={() => track('phone_click', { source: 'footer', branch: 'sierraleone' })} className="text-[0.87rem] hover:text-white transition-colors">{CONTACT.sierraLeone.phoneSecondary}</a></li>
-                  <li><a href={`https://wa.me/${SIERRA_LEONE_CONTACT.whatsappPrimary}`} target="_blank" rel="noopener noreferrer" onClick={() => track('whatsapp_click', { source: 'footer', branch: 'sierraleone' })} className="text-[0.87rem] hover:text-white transition-colors">WhatsApp</a></li>
-                </ul>
-              </div>
-
-              {/* Global */}
-              <div>
-                <ul className="grid gap-2 mt-2">
-                  <li><a href={`mailto:${CONTACT.email}`} className="text-[0.87rem] hover:text-white transition-colors">{CONTACT.email}</a></li>
-                  <li style={{ color: 'rgba(255,255,255,.4)' }} className="text-[0.87rem]">{CONTACT.hours}</li>
-                </ul>
-              </div>
-
-            </div>
-
-            <div className="mt-6 grid gap-2.5" style={{ marginTop: 24 }}>
+            <div className="grid gap-2.5" style={{ marginTop: 20 }}>
               <a
                 href={APPS.riderAppStore}
                 target="_blank"
@@ -992,14 +959,153 @@ export function Footer() {
           </div>
         </div>
 
+        {/* divider */}
+        <div style={{ height: 1, background: 'rgba(255,255,255,.1)' }} />
+
+        {/* ── 2. OFFICES + GLOBAL (one row, 3 compact cards) ────────── */}
+        <div style={{ paddingTop: 40, paddingBottom: 40 }}>
+          <h2 className="text-[0.68rem] font-bold tracking-[0.16em] uppercase text-white">
+            Contact
+          </h2>
+
+          <div className="mt-6 grid gap-5 md:grid-cols-3">
+            {/* Nigeria */}
+            <div className="rounded-lg p-5" style={{ border: '1px solid rgba(255,255,255,.1)' }}>
+              <span
+                className="text-[0.66rem] font-bold tracking-[0.14em] uppercase block mb-2"
+                style={{ color: 'rgba(255,255,255,.4)' }}
+              >
+                Nigeria
+              </span>
+              <address
+                className="not-italic text-[0.84rem] leading-relaxed mb-3"
+                style={{ color: 'rgba(255,255,255,.62)' }}
+              >
+                {NIGERIA_CONTACT.address}
+              </address>
+              <ul className="grid gap-1.5">
+                <li>
+                  <a
+                    href={`tel:${NIGERIA_CONTACT.phonePrimaryTel}`}
+                    onClick={() => track('phone_click', { source: 'footer', branch: 'nigeria' })}
+                    className="text-[0.86rem] hover:text-white transition-colors"
+                  >
+                    {NIGERIA_CONTACT.phonePrimary}
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href={`https://wa.me/${NIGERIA_CONTACT.whatsapp}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    onClick={() => track('whatsapp_click', { source: 'footer', branch: 'nigeria' })}
+                    className="text-[0.86rem] hover:text-white transition-colors"
+                  >
+                    WhatsApp
+                  </a>
+                </li>
+              </ul>
+            </div>
+
+            {/* Sierra Leone */}
+            <div className="rounded-lg p-5" style={{ border: '1px solid rgba(255,255,255,.1)' }}>
+              <span
+                className="text-[0.66rem] font-bold tracking-[0.14em] uppercase block mb-2"
+                style={{ color: 'rgba(255,255,255,.4)' }}
+              >
+                Sierra Leone
+              </span>
+              <address
+                className="not-italic text-[0.84rem] leading-relaxed mb-3"
+                style={{ color: 'rgba(255,255,255,.62)' }}
+              >
+                {SIERRA_LEONE_CONTACT.address}
+              </address>
+              <ul className="grid gap-1.5">
+                <li>
+                  <a
+                    href={`tel:${CONTACT.sierraLeone.phonePrimary.replace(/\s/g, '')}`}
+                    onClick={() => track('phone_click', { source: 'footer', branch: 'sierraleone' })}
+                    className="text-[0.86rem] hover:text-white transition-colors"
+                  >
+                    {CONTACT.sierraLeone.phonePrimary}
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href={`tel:${CONTACT.sierraLeone.phoneSecondary.replace(/\s/g, '')}`}
+                    onClick={() => track('phone_click', { source: 'footer', branch: 'sierraleone' })}
+                    className="text-[0.86rem] hover:text-white transition-colors"
+                  >
+                    {CONTACT.sierraLeone.phoneSecondary}
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href={`https://wa.me/${SIERRA_LEONE_CONTACT.whatsappPrimary}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    onClick={() => track('whatsapp_click', { source: 'footer', branch: 'sierraleone' })}
+                    className="text-[0.86rem] hover:text-white transition-colors"
+                  >
+                    WhatsApp
+                  </a>
+                </li>
+              </ul>
+            </div>
+
+            {/* Global */}
+            <div className="rounded-lg p-5" style={{ border: '1px solid rgba(255,255,255,.1)' }}>
+              <span
+                className="text-[0.66rem] font-bold tracking-[0.14em] uppercase block mb-2"
+                style={{ color: 'rgba(255,255,255,.4)' }}
+              >
+                General Enquiries
+              </span>
+              <ul className="grid gap-2">
+                <li>
+                  <a
+                    href={`mailto:${CONTACT.email}`}
+                    className="text-[0.86rem] hover:text-white transition-colors break-all"
+                  >
+                    {CONTACT.email}
+                  </a>
+                </li>
+                <li style={{ color: 'rgba(255,255,255,.42)' }} className="text-[0.84rem]">
+                  {CONTACT.hours}
+                </li>
+              </ul>
+              <a
+                href={`mailto:${CONTACT.email}`}
+                className="btn btn--brand btn--sm mt-4"
+              >
+                Email us
+              </a>
+            </div>
+          </div>
+        </div>
+
+        {/* divider */}
+        <div style={{ height: 1, background: 'rgba(255,255,255,.1)' }} />
+
+        {/* ── 3. BOTTOM BAR (legal + one-line trust) ────────────────── */}
         <div
-          className="mt-14 pt-7 flex flex-wrap items-center justify-between gap-4 text-[0.8rem]"
-          style={{ borderTop: '1px solid rgba(255,255,255,.1)', marginTop: 56, color: 'rgba(255,255,255,.4)' }}
+          className="flex flex-col gap-3 lg:flex-row lg:items-center lg:justify-between"
+          style={{ paddingTop: 24, color: 'rgba(255,255,255,.4)' }}
         >
-          <span>© 2026 Countryside Taxi Company Ltd. All rights reserved.</span>
-          <span className="flex gap-6">
-            <a href="/privacy-policy" className="hover:text-white transition-colors">Privacy Policy</a>
-            <a href="/terms-conditions" className="hover:text-white transition-colors">Terms &amp; Conditions</a>
+          <span className="text-[0.78rem]">
+            © 2026 Countryside Taxi Company Ltd · GPS-monitored fleet · Verified drivers
+          </span>
+          <span className="flex flex-wrap gap-x-6 gap-y-2 text-[0.78rem]">
+            <a href="/privacy-policy" className="hover:text-white transition-colors">
+              Privacy Policy
+            </a>
+            <a href="/terms-conditions" className="hover:text-white transition-colors">
+              Terms &amp; Conditions
+            </a>
+            <a href="/contact#contact" className="hover:text-white transition-colors">
+              Contact
+            </a>
           </span>
         </div>
       </div>
@@ -1069,4 +1175,4 @@ export function MobileBar() {
       )}
     </AnimatePresence>
   );
-} 
+}

@@ -64,7 +64,10 @@ export function track(event: AnalyticsEvent, payload: Payload = {}): void {
 export const CONTACT = {
   phonePrimary: '08039304425',
   phonePrimaryTel: '+2348039304425',
+  phoneSecondary: '08077671056',
+  phoneSecondaryTel: '+2348077671056',
   whatsapp: '2348039304425',
+  whatsappTel: '+2348039304425',
   email: 'info@ctctaxi.com',
   addressLines: [
     'Plot 25 Ojefia Crescent, Victory Estate,',
