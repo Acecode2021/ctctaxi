@@ -267,7 +267,7 @@ export function FAQ() {
                   <Icon name="chat" size={15} /> WhatsApp NG
                 </a>
                 <a
-                  href={`https://wa.me/${CONTACT.sierraLeone.whatsapp}`}
+                  href={`https://wa.me/${SIERRA_LEONE_CONTACT.whatsappPrimary}`}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="btn btn--outline btn--sm"
@@ -852,7 +852,7 @@ const FOOT_NAV = [
     { l: 'Drive With CTC', href: '/drive#drive' },
     { l: 'Contact', href: '/contact#contact' },
     { l: 'FAQ', href: '/contact#faq' },
-    {l: 'Privacy Policy', href: '/privacy-policy'}
+    { l: 'Privacy Policy', href: '/privacy-policy/' }
   ]},
 ];
 

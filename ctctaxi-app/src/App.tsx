@@ -11,7 +11,7 @@ import Drive from './pages/drive';
 import About from './pages/About';
 import Contact from './pages/Contact';
 import Newsroom from './pages/Newsroom';
-import PrivacyPolicy from './pages/PrivacyPolicy';
+import PrivacyPolicy from './pages/privacypolicy';
 
 
 function RouteScroll() {
