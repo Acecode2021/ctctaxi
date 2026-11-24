@@ -130,6 +130,7 @@ export const SOCIAL = {
   facebook: 'https://facebook.com/ctctaxiofficial',
   instagram: 'https://instagram.com/ctctaxiofficial',
   x: 'https://x.com/ctctaxiofficial',
+  tiktok: 'https://www.tiktok.com/@ctctaxiofficial',
 } as const;
 
 export function whatsappLink(message: string): string {

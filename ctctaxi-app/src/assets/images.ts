@@ -41,6 +41,7 @@ import blog_travels_760 from './img/travels (1).jpg';
 import blog_support_760 from './img/roadsafety (1).jpg';
 
 import social_fleet_760 from './img/shot_0.png';
+import social_fleet_761 from './img/shot_1.png';
 import social_support_760 from './img/ytq_netW-89fw5U.jpg';
 import social_office_760 from './img/ytq_6n7e7Y87Q1Y.jpg';
 import social_staff_760 from './img/ytq_JSr_6l0ZZ5k.jpg';
@@ -84,6 +85,7 @@ export const IMG = {
   blog_travels_760,
   blog_support_760,
   social_fleet_760,
+  social_fleet_761,
   social_support_760,
   social_office_760,
   social_staff_760,
@@ -111,7 +113,7 @@ const SETS: Record<string, string[]> = {
   blog_blowpay: [IMG.blog_blowpay_760],
   blog_travels: [IMG.blog_travels_760],
   blog_support: [IMG.blog_support_760],
-  social_fleet: [IMG.social_fleet_760],
+  social_fleet: [IMG.social_fleet_761],
   social_support: [IMG.social_support_760],
   social_office: [IMG.social_office_760],
   social_staff: [IMG.social_staff_760],

@@ -280,7 +280,7 @@ export function Hero() {
               transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
               className="eyebrow text-white/100"
             >
-              <b>Lagos moves with CTC</b>
+              <b>Experience convenient rides with CTC”</b>
             </motion.div>
 
             <motion.h1
@@ -309,7 +309,7 @@ export function Hero() {
               style={{ marginTop: 28, maxWidth: '46ch' }}
             >
               Reliable everyday rides, airport transfers, corporate transportation and
-              delivery services designed to move Lagos forward.
+              delivery services designed to move the world forward.
             </motion.p>
 
             <motion.div

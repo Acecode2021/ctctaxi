@@ -165,8 +165,10 @@ const APPS_DETAIL: AppDef[] = [
       { icon: 'headset', title: 'Support while you are on a trip', body: 'A direct line to our team if something goes wrong mid-journey, rather than a form nobody answers.' },
     ],
     platforms: { appStore: APPS.driverAppStore, play: APPS.driverPlay },
-    
-    shots: [{ src: IMG.shot_driver_1, alt: 'CTC Driver app showing a ride request on a Lagos map' }],
+    shots: [
+      { src: IMG.shot_driver_1, alt: 'CTC Driver app showing a ride request on a Lagos map' },
+      { src: IMG.social_fleet_761, alt: 'CTC Driver app screenshot' },
+    ],
   },
 ];
 
