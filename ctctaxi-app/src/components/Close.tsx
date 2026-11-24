@@ -852,6 +852,7 @@ const FOOT_NAV = [
     { l: 'Drive With CTC', href: '/drive#drive' },
     { l: 'Contact', href: '/contact#contact' },
     { l: 'FAQ', href: '/contact#faq' },
+    {l: 'Privacy Policy', href: '/privacy-policy'}
   ]},
 ];
 
