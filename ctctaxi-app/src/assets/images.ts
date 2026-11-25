@@ -30,6 +30,8 @@ import scheduled_768 from './img/scheduled-768.webp';
 import shot_driver_1 from './img/shot_driver_1.jpg';
 import shot_rider_1 from './img/shot_rider_1.jpg';
 import shot_rider_2 from './img/shot_rider_2.jpg';
+import camery from './img/camery.webp';
+import keke from './img/keke.jpeg';
 
 import blog_uganda_760 from './img/ytq_awNtgGnWYhE.jpg';
 import blog_sierraleone_760 from './img/ctc-sierraleone (1).jpg';
@@ -48,6 +50,8 @@ import social_staff_760 from './img/ytq_JSr_6l0ZZ5k.jpg';
 import social_brand_760 from './img/yt_ptC2RIPt6Ug.jpg';
 
 export const IMG = {
+  camery,
+  keke,
   airport_1280,
   airport_768,
   corporate_1280,
@@ -105,6 +109,7 @@ const SETS: Record<string, string[]> = {
   driver: [IMG.driver_768, IMG.driver_1280],
   final_cta: [IMG.final_cta_768, IMG.final_cta_1280],
   lagos_map_office: [IMG.lagos_map_office_900, IMG.lagos_map_office_1400],
+  blog_keke: [IMG.keke],
   blog_uganda: [IMG.blog_uganda_760],
   blog_sierraleone: [IMG.blog_sierraleone_760],
   blog_dashcam: [IMG.blog_dashcam_760],

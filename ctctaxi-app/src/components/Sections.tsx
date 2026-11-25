@@ -4,6 +4,8 @@ import { Icon, Reveal, SectionHead } from './primitives';
 import { SERVICES, TRUST_SIGNALS } from '../lib/data';
 import { srcset } from '../assets/images';
 import { track } from '../lib/analytics';
+import toyota from '../assets/img/toyota.jpeg';
+
 
 /* ==========================================================================
    TRUST STRIP
@@ -207,7 +209,16 @@ function ServiceCard({ s, index }: { s: (typeof SERVICES)[number]; index: number
 
 export function Services() {
   return (
-    <section id="services" className="section" style={{ background: '#fff' }}>
+  <section
+  id="services"
+  className="section"
+  style={{
+    backgroundImage: `url(${toyota})`,
+    backgroundSize: 'cover',
+    backgroundPosition: 'center',
+    backgroundRepeat: 'no-repeat',
+  }}
+>
       <div className="shell">
         <SectionHead
           eyebrow="What we do"

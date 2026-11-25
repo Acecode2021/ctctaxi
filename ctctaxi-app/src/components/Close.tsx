@@ -2,6 +2,7 @@ import { AnimatePresence, motion, useReducedMotion, useScroll, useSpring } from 
 import { useEffect, useRef, useState, type FormEvent } from 'react';
 import { Icon, Magnetic, Reveal, SectionHead, Stars } from './primitives';
 import { IMG, srcset } from '../assets/images';
+import jetour from '../assets/img/jetour.webp';
 import { FAQS, REVIEWS } from '../lib/data';
 import { APPS, CONTACT, MAP, SOCIAL, track } from '../lib/analytics';
 import { CAPTURE, isEmail, isPhone, submitForm } from '../lib/forms';
@@ -858,7 +859,15 @@ const FOOT_NAV = [
 
 export function Footer() {
   return (
-    <footer style={{ background: 'var(--color-ink)', color: 'rgba(255,255,255,.62)' }}>
+    <footer
+      style={{
+        backgroundColor: 'var(--color-ink)',
+        backgroundImage: `linear-gradient(rgba(8,8,12,.84), rgba(8,8,12,.9)), url(${jetour})`,
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        color: 'rgba(255,255,255,.62)',
+      }}
+    >
       <div className="shell" style={{ paddingTop: 80, paddingBottom: 32 }}>
 
         {/* ── 1. BRAND + LINK COLUMNS (one grid row) ────────────────── */}
@@ -989,6 +998,7 @@ export function Footer() {
                 <li>
                   <a
                     href={`tel:${NIGERIA_CONTACT.phonePrimaryTel}`}
+                    
                     onClick={() => track('phone_click', { source: 'footer', branch: 'nigeria' })}
                     className="text-[0.86rem] hover:text-white transition-colors"
                   >

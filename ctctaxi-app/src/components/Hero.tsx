@@ -1,7 +1,7 @@
 import { motion, useReducedMotion, useScroll, useTransform } from 'framer-motion';
 import { useRef, useState, useEffect } from 'react';
 import { Icon, Magnetic, RotatingWord } from './primitives';
-import { IMG, srcset } from '../assets/images';
+import { IMG } from '../assets/images';
 import { APPS, track } from '../lib/analytics';
 import { QuickBook } from './QuickBook';
 
@@ -18,19 +18,10 @@ import { QuickBook } from './QuickBook';
  *       +faststart, poster frame matching hero-main.
  */
 function HeroMedia() {
-  const reduced = useReducedMotion();
-  const [videoReady, setVideoReady] = useState(false);
-  const [videoFailed, setVideoFailed] = useState(false);
-  const ref = useRef<HTMLVideoElement>(null);
-
-  const showVideo = !reduced && !videoFailed;
-
   return (
     <div className="absolute inset-0 overflow-hidden" aria-hidden="true">
       <img
-        src={IMG.hero_main_1280}
-        srcSet={srcset('hero_main')}
-        sizes="100vw"
+        src={IMG.camery}
         alt=""
         width={1280}
         height={537}
@@ -39,28 +30,6 @@ function HeroMedia() {
         className="absolute inset-0 h-full w-full object-cover"
         style={{ objectPosition: '62% 58%' }}
       />
-      {showVideo && (
-        <video
-          ref={ref}
-          className="absolute inset-0 h-full w-full object-cover"
-          style={{
-            objectPosition: '62% 58%',
-            opacity: videoReady ? 1 : 0,
-            transition: 'opacity 1.1s var(--ease-out-expo)',
-          }}
-          poster={IMG.hero_main_1280}
-          autoPlay
-          muted
-          loop
-          playsInline
-          preload="metadata"
-          onCanPlay={() => setVideoReady(true)}
-          onError={() => setVideoFailed(true)}
-        >
-          <source src="/media/ctc-hero.webm" type="video/webm" />
-          <source src="/media/ctc-hero.mp4" type="video/mp4" />
-        </video>
-      )}
 
       {/* Layered scrim: keeps the headline at AA contrast without dulling the car */}
       <div
@@ -131,7 +100,7 @@ function HeroAppCarousel() {
               loop
               playsInline
               preload="metadata"
-              poster={IMG.hero_main_1280}
+              poster={IMG.camery}
               className="h-full w-full object-cover"
               style={{ objectPosition: '62% 58%' }}
             >

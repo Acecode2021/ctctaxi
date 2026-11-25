@@ -36,6 +36,28 @@ export type Post = {
 
 export const POSTS: Post[] = [
   {
+    slug: 'ctc-taxi-tricycles-freetown',
+    title: 'CTC Taxi introduces tricycles as a new ride option in Freetown',
+    excerpt:
+      'Tricycles are now available on CTC Taxi in Freetown, Sierra Leone — another option for passengers planning their trips.',
+    date: '2026',
+    iso: '2026',
+    tag: 'Fleet',
+    img: 'keke',
+    featured: true,
+    source: {
+      label: 'CTC Taxi',
+      url: 'https://ctctaxi.com/',
+    },
+    body: [
+      'CTC Taxi is expanding the ride options available on the platform with the introduction of tricycles in Freetown, Sierra Leone, adding another convenient way for passengers to get around the city.',
+      'The company recognised that getting around town doesn\u2019t always require the same kind of ride. Different journeys call for different options, and the aim is to make that choice easier. With tricycles now available on CTC Taxi in Freetown, passengers have another alternative to consider when planning their trips.',
+      'This addition reflects a continued effort to make transportation more flexible and responsive to the everyday needs of the people the platform serves. By expanding its ride options, CTC Taxi is taking another step towards building a platform that accommodates varying travel preferences and makes mobility more accessible.',
+      'The tricycle option is currently available in Freetown, Sierra Leone, as the company continues to evolve its services and explore opportunities to improve the CTC Taxi experience.',
+      'Better mobility begins with having options, and this is another step in that direction. More options. More flexibility. Find your path with ease.',
+    ],
+  },
+  {
     slug: 'ctc-taxi-uganda',
     title: 'CTC Taxi and BlowPay set to launch in Uganda',
     excerpt:
@@ -199,5 +221,5 @@ export const POSTS: Post[] = [
   },
 ];
 
-export const TAGS = ['All', 'Company', 'Safety', 'Expansion', 'Travel', 'Payments'] as const;
+export const TAGS = ['All', 'Company', 'Safety', 'Fleet', 'Expansion', 'Travel', 'Payments'] as const;
 export type TagFilter = (typeof TAGS)[number];
