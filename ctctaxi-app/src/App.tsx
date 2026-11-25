@@ -46,6 +46,7 @@ export default function App() {
         <Route path="/about" element={<About />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/newsroom" element={<Newsroom />} />
+        <Route path="/newsroom/:slug" element={<Newsroom />} />
         <Route path="/privacy-policy" element={<PrivacyPolicy />} />
         <Route path="*" element={<main className="shell min-h-screen pt-32"><h1 className="h2">Page not found</h1><a className="btn btn--brand mt-6" href="/">Return home</a></main>} />
       </Routes>

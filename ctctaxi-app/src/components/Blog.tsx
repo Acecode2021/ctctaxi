@@ -1,5 +1,6 @@
 import { AnimatePresence, motion, useReducedMotion } from 'framer-motion';
 import { useEffect, useMemo, useRef, useState } from 'react';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import { Icon, Reveal, SectionHead } from './primitives';
 import { IMG, srcset } from '../assets/images';
 import { POSTS, TAGS, type Post, type TagFilter } from '../lib/blog';
@@ -12,11 +13,8 @@ import { track } from '../lib/analytics';
    reads straight from the company's own releases and the national coverage
    of them. Nothing here is invented — see the header of lib/blog.ts.
 
-   The card opens a slide-over rather than routing to another page. The site
-   is a single page, and a client-side route would mean a server rewrite
-   rule, a new bundle entry and a 404 risk on a marketing site that should
-   not have one. If CTC later wants real article URLs for SEO, the post
-   bodies are already structured for it — see the note in README.md.
+  Every story has its own slug URL. The matching route opens the story reader,
+  including when a visitor loads or shares that URL directly.
    ========================================================================== */
 
 const TAG_COLOURS: Record<string, string> = {
@@ -82,12 +80,10 @@ function Cover({ post, priority = false }: { post: Post; priority?: boolean }) {
 
 function PostCard({
   post,
-  onOpen,
   delay = 0,
   feature = false,
 }: {
   post: Post;
-  onOpen: (p: Post) => void;
   delay?: number;
   feature?: boolean;
 }) {
@@ -137,15 +133,15 @@ function PostCard({
             className="mt-6 flex items-center justify-between gap-4"
             style={{ borderTop: '1px solid var(--color-line)', paddingTop: 18, marginTop: 24 }}
           >
-            <button
-              type="button"
-              onClick={() => onOpen(post)}
+            <Link
+              to={`/newsroom/${post.slug}`}
               className="inline-flex items-center gap-2 font-semibold text-[0.88rem]"
               style={{ color: 'var(--color-brand)' }}
+              onClick={() => track('blog_open', { slug: post.slug, tag: post.tag })}
             >
               Read story
               <Icon name="arrow-right" size={16} />
-            </button>
+            </Link>
             <a
               href={post.source.url}
               target="_blank"
@@ -424,17 +420,14 @@ function FromOurChannels() {
 
 export function Blog() {
   const [filter, setFilter] = useState<TagFilter>('All');
-  const [open, setOpen] = useState<Post | null>(null);
+  const { slug } = useParams();
+  const navigate = useNavigate();
+  const open = POSTS.find((post) => post.slug === slug) ?? null;
 
   const shown = useMemo(
     () => (filter === 'All' ? POSTS : POSTS.filter((p) => p.tag === filter)),
     [filter],
   );
-
-  const openPost = (p: Post) => {
-    setOpen(p);
-    track('blog_open', { slug: p.slug, tag: p.tag });
-  };
 
   const counts = useMemo(() => {
     const c: Record<string, number> = { All: POSTS.length };
@@ -522,7 +515,7 @@ export function Blog() {
                   transition={{ duration: 0.35, delay: Math.min(i * 0.04, 0.2) }}
                   className={p.featured && filter === 'All' ? 'md:col-span-2 xl:col-span-1' : ''}
                 >
-                  <PostCard post={p} onOpen={openPost} delay={0} feature={Boolean(p.featured) && filter === 'All'} />
+                  <PostCard post={p} delay={0} feature={Boolean(p.featured) && filter === 'All'} />
                 </motion.div>
               ))}
             </div>
@@ -567,7 +560,7 @@ export function Blog() {
         </Reveal>
       </div>
 
-      <AnimatePresence>{open && <Reader post={open} onClose={() => setOpen(null)} />}</AnimatePresence>
+      <AnimatePresence>{open && <Reader post={open} onClose={() => navigate('/newsroom')} />}</AnimatePresence>
     </section>
   );
 }
